@@ -9,15 +9,15 @@ class QuickFindTest {
 	@Test
 	void test() {
 		var quickFind = new QuickFind(10);
-		quickFind.connect(3, 4);
-		quickFind.connect(3, 8);
-		quickFind.connect(5, 6);
-		quickFind.connect(4, 8);
-		quickFind.connect(1, 2);
-		quickFind.connect(8, 9);
-		quickFind.connect(0, 5);
-		quickFind.connect(2, 7);
-		quickFind.connect(6, 1);
+		quickFind.union(3, 4);
+		quickFind.union(3, 8);
+		quickFind.union(5, 6);
+		quickFind.union(4, 8);
+		quickFind.union(1, 2);
+		quickFind.union(8, 9);
+		quickFind.union(0, 5);
+		quickFind.union(2, 7);
+		quickFind.union(6, 1);
 
 		assertThat(quickFind.isConnected(0, 7)).isTrue();
 		assertThat(quickFind.isConnected(0, 2)).isTrue();

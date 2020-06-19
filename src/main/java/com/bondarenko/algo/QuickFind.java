@@ -1,5 +1,10 @@
 package com.bondarenko.algo;
 
+/**
+ * init = n
+ * union = n
+ * find = 1
+ */
 public class QuickFind {
 
 	private final int[] data;
@@ -11,7 +16,7 @@ public class QuickFind {
 		}
 	}
 
-	public void connect(int a, int b) {
+	public void union(int a, int b) {
 		if (!isConnected(a, b)) {
 			int aVal = data[a];
 			int bVal = data[b];
