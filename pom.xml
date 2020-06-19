@@ -53,39 +53,28 @@
 		</dependencies>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
-					<configuration>
-						<release>${project.java.version}</release>
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<debug>true</debug>
-						<showDeprecation>true</showDeprecation>
-						<showWarnings>true</showWarnings>
-						<optimize>true</optimize>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven-surefire-plugin.version}</version>
-					<configuration>
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<systemPropertyVariables>
-							<java.io.tmpdir>${project.tmp.directory}</java.io.tmpdir>
-						</systemPropertyVariables>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<release>${project.java.version}</release>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<debug>true</debug>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>true</showWarnings>
+					<optimize>true</optimize>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<systemPropertyVariables>
+						<java.io.tmpdir>${project.build.directory}/tmp</java.io.tmpdir>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
