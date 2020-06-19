@@ -1,4 +1,4 @@
-package com.bondarenko.algo;
+package com.bondarenko.algo.dynamicconnectivity;
 
 /**
  * Build the tree. if both values have the same root - they are connected

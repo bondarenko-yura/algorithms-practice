@@ -1,4 +1,4 @@
-package com.bondarenko.algo;
+package com.bondarenko.algo.dynamicconnectivity;
 
 /**
  * init = n

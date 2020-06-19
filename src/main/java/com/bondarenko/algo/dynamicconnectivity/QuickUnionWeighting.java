@@ -1,4 +1,4 @@
-package com.bondarenko.algo;
+package com.bondarenko.algo.dynamicconnectivity;
 
 /**
  * Build the tree. We keep track of tree size (number of objects).
