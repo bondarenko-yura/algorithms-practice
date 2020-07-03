@@ -1,5 +1,9 @@
 package com.bondarenko.algo.sort;
 
+/**
+ * O(n) best = N
+ * O(n) worst = N^2
+ */
 public class BubbleSort implements Sort {
   @Override
   public void sort(int[] arr) {

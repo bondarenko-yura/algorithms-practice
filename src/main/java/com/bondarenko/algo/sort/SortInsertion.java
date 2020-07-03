@@ -1,7 +1,10 @@
 package com.bondarenko.algo.sort;
 
 /**
- * O(n) = N^2
+ * O(n) best = N
+ * O(n) worst = N^2
+ *
+ * stable
  */
 public class SortInsertion implements Sort {
   @Override

@@ -1,7 +1,9 @@
 package com.bondarenko.algo.sort;
 
 /**
- * O(n) = N^2 / 2
+ * O(n) = N^2
+ *
+ * not stable
  */
 public class SortSelection implements Sort {
 

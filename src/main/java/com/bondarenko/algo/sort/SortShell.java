@@ -1,7 +1,8 @@
 package com.bondarenko.algo.sort;
 
 /**
- * O(n) = N^(3/2)
+ * O(n) best = N log (N)
+ * O(n) worst = N^(3/2)
  */
 public class SortShell implements Sort {
   @Override

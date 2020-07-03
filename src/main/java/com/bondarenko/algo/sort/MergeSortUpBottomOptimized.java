@@ -1,5 +1,10 @@
 package com.bondarenko.algo.sort;
 
+/**
+ * O(n) = N log(N)
+ *
+ * stable
+ */
 public class MergeSortUpBottomOptimized implements Sort {
 
   private static final int CUTOFF = 7;

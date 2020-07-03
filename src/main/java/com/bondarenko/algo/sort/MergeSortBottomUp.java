@@ -1,5 +1,10 @@
 package com.bondarenko.algo.sort;
 
+/**
+ * O(n) = N log(N)
+ *
+ * stable
+ */
 public class MergeSortBottomUp implements Sort {
 
   @Override
