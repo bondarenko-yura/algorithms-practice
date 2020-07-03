@@ -1,6 +1,5 @@
 package com.bondarenko.algo.dynamicconnectivity;
 
-import com.bondarenko.algo.dynamicconnectivity.QuickUnion;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

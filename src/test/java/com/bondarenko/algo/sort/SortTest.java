@@ -3,15 +3,21 @@ package com.bondarenko.algo.sort;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Stopwatch;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SortTest {
 
-  private static final int PROBLEM_SIZE = 250_000;
+  private static final int PROBLEM_SIZE_SUPER_LOW_TEAR = 100_000;
+  private static final int PROBLEM_SIZE_LOW_TEAR = 500_000;
+  private static final int PROBLEM_SIZE_MID_TEAR = 200_000_000;
 
   private Random random;
 
@@ -20,38 +26,77 @@ class SortTest {
     this.random = new Random(55);
   }
 
+  @Order(1)
+  @Test
+  void sortBubble() {
+    testSort(new BubbleSort(), PROBLEM_SIZE_SUPER_LOW_TEAR);
+  }
+
+  @Order(2)
   @Test
   void sortSelection() {
-    testSort(new SortSelection());
+    testSort(new SortSelection(), PROBLEM_SIZE_LOW_TEAR);
   }
 
+  @Order(3)
   @Test
   void sortInsertion() {
-    testSort(new SortInsertion());
+    testSort(new SortInsertion(), PROBLEM_SIZE_LOW_TEAR);
   }
 
+  @Order(4)
   @Test
   void sortShell() {
-    testSort(new SortShell());
+    testSort(new SortShell(), PROBLEM_SIZE_MID_TEAR);
   }
 
-  private void testSort(Sort sort) {
+  @Order(5)
+  @Test
+  void sortMergeUpBottom() {
+    testSort(new MergeSortUpBottom(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(6)
+  @Test
+  void sortMergeUbBottomOptimized() {
+    testSort(new MergeSortUpBottomOptimized(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(7)
+  @Test
+  void sortMergeBottomUm() {
+    testSort(new MergeSortBottomUp(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  private void testSort(Sort sort, int problemSize) {
+    tryGs();
+
     Stopwatch stp = new Stopwatch();
 
-    int[] arr = generateArray();
+    int[] arr = generateArray(problemSize);
     sort.sort(arr);
 
     double elapsedTime = stp.elapsedTime();
-    StdOut.printf("'%s' time '%d' sec", sort.getClass().getSimpleName(), Math.round(elapsedTime));
+    StdOut.printf("'%s', problem size = '%d', time '%d' sec",
+        sort.getClass().getSimpleName(), problemSize, Math.round(elapsedTime));
 
     assertThat(sort.isSorted(arr)).isTrue();
   }
 
-  private int[] generateArray() {
-    int[] arr = new int[PROBLEM_SIZE];
+  private int[] generateArray(int problemSize) {
+    int[] arr = new int[problemSize];
     for (int i = 0; i < arr.length; i++) {
-      arr[i] = random.nextInt(PROBLEM_SIZE);
+      arr[i] = random.nextInt(problemSize);
     }
     return arr;
+  }
+
+  private void tryGs() {
+    System.gc();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      throw new IllegalStateException(e);
+    }
   }
 }

@@ -11,7 +11,14 @@ public interface Sort {
   }
 
   default boolean isSorted(int[] arr) {
-    for (int i = 1; i < arr.length; i++) {
+    return isSorted(arr, 0, arr.length);
+  }
+
+  default boolean isSorted(int[] arr, int lo, int hi) {
+    assert lo >= 0;
+    assert hi <= arr.length;
+
+    for (int i = lo + 1; i < hi; i++) {
       if (arr[i - 1] > arr[i]) {
         return false;
       }
