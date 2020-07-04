@@ -5,7 +5,7 @@ package com.bondarenko.algo.sort;
  *
  * stable
  */
-public class MergeSortUpBottomOptimized implements Sort {
+public class SortMergeUpBottomOptimized implements Sort {
 
   private static final int CUTOFF = 7;
 

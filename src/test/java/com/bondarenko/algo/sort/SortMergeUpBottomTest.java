@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MergeSortUpBottomTest {
+class SortMergeUpBottomTest {
 
-  private final MergeSortUpBottom sort = new MergeSortUpBottom();
+  private final SortMergeUpBottom sort = new SortMergeUpBottom();
 
   @Test
   void merge() {
@@ -24,7 +24,7 @@ class MergeSortUpBottomTest {
     sort(new int[]{3, 1, 2, 9, 5});
   }
 
-  private void merge(MergeSortUpBottom sort, int[] arr) {
+  private void merge(SortMergeUpBottom sort, int[] arr) {
     int[] aux = new int[arr.length];
     sort.merge(arr, aux, 0, arr.length / 2, arr.length);
     assertThat(sort.isSorted(arr)).isTrue();

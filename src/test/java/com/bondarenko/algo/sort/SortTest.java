@@ -15,9 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SortTest {
 
-  private static final int PROBLEM_SIZE_SUPER_LOW_TEAR = 100_000;
+  private static final int PROBLEM_SIZE_SUPER_LOW_TEAR = 200_000;
   private static final int PROBLEM_SIZE_LOW_TEAR = 500_000;
   private static final int PROBLEM_SIZE_MID_TEAR = 200_000_000;
+  private static final int PROBLEM_SIZE_HIGH_TEAR = 500_000_000;
 
   private Random random;
 
@@ -29,7 +30,7 @@ class SortTest {
   @Order(1)
   @Test
   void sortBubble() {
-    testSort(new BubbleSort(), PROBLEM_SIZE_SUPER_LOW_TEAR);
+    testSort(new SortBubble(), PROBLEM_SIZE_SUPER_LOW_TEAR);
   }
 
   @Order(2)
@@ -53,19 +54,37 @@ class SortTest {
   @Order(5)
   @Test
   void sortMergeUpBottom() {
-    testSort(new MergeSortUpBottom(), PROBLEM_SIZE_MID_TEAR);
+    testSort(new SortMergeUpBottom(), PROBLEM_SIZE_MID_TEAR);
   }
 
   @Order(6)
   @Test
   void sortMergeUbBottomOptimized() {
-    testSort(new MergeSortUpBottomOptimized(), PROBLEM_SIZE_MID_TEAR);
+    testSort(new SortMergeUpBottomOptimized(), PROBLEM_SIZE_MID_TEAR);
   }
 
   @Order(7)
   @Test
   void sortMergeBottomUm() {
-    testSort(new MergeSortBottomUp(), PROBLEM_SIZE_MID_TEAR);
+    testSort(new SortMergeBottomUp(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(8)
+  @Test
+  void sortQuick() {
+    testSort(new SortQuick(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(9)
+  @Test
+  void sortQuickCutoff() {
+    testSort(new SortQuickCutoff(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(10)
+  @Test
+  void sortQuick3Tear() {
+    testSort(new SortQuick3WayPartitioning(), PROBLEM_SIZE_MID_TEAR);
   }
 
   private void testSort(Sort sort, int problemSize) {
@@ -94,7 +113,7 @@ class SortTest {
   private void tryGs() {
     System.gc();
     try {
-      Thread.sleep(1000);
+      Thread.sleep(3000);
     } catch (InterruptedException e) {
       throw new IllegalStateException(e);
     }

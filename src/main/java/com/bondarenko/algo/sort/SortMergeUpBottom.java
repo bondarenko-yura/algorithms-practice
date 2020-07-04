@@ -5,25 +5,26 @@ package com.bondarenko.algo.sort;
  *
  * stable
  */
-public class MergeSortBottomUp implements Sort {
+public class SortMergeUpBottom implements Sort {
 
   @Override
   public void sort(int[] arr) {
-    int[] aux = new int[arr.length];
-
-    for (int halfLen = 1; halfLen < arr.length; halfLen *= 2) {
-      int len = halfLen * 2;
-      for (int lo = 0; lo + halfLen < arr.length; lo += len) {
-        merge(arr, aux, lo, lo + halfLen, Math.min(lo + len, arr.length));
-      }
-    }
+    sort(arr, new int[arr.length], 0, arr.length);
   }
 
-  void merge(int[] arr, int[] aux, int lo, int mid, int hi) {
-    if (arr[mid - 1] <= arr[mid]) {
+  void sort(int[] arr, int[] aux, int lo, int hi) {
+    int rangeSize = hi - lo;
+    if (rangeSize < 2) {
       return;
     }
 
+    int mid = lo + rangeSize / 2;
+    sort(arr, aux, lo, mid);
+    sort(arr, aux, mid, hi);
+    merge(arr, aux, lo, mid, hi);
+  }
+
+  void merge(int[] arr, int[] aux, int lo, int mid, int hi) {
     System.arraycopy(arr, lo, aux, lo, hi - lo);
 
     int midDest = mid;
