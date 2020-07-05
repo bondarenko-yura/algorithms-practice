@@ -7,21 +7,16 @@ class PointTest {
   @Test
   void slopeTo() {
     Point[] points = new Point[] {
-        new Point(10000, 0),
-        new Point(8000, 2000),
-        new Point(2000, 8000),
-        new Point(0, 10000),
-        new Point(20000, 0),
-        new Point(18000, 2000),
-        new Point(2000, 18000),
-        new Point(10000, 20000),
-        new Point(30000, 0),
-        new Point(0, 30000),
-        new Point(20000, 10000),
-        new Point(13000, 0),
-        new Point(11000, 3000),
-        new Point(5000, 12000),
-        new Point(9000, 6000)
+        new Point( 4000, 30000),
+        new Point( 3500, 28000),
+        new Point( 3000, 26000),
+        new Point( 2000, 22000),
+        new Point( 1000, 18000),
+        new Point(13000, 21000),
+        new Point(23000, 16000),
+        new Point(28000, 13500),
+        new Point(28000, 5000),
+        new Point(28000, 1000)
     };
 
     LineSegment[] bruteSeq = new BruteCollinearPoints(points.clone()).segments();
