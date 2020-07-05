@@ -1,3 +1,7 @@
+import com.bondarenko.algo.sort.collinear.BruteCollinearPoints;
+import com.bondarenko.algo.sort.collinear.FastCollinearPoints;
+import com.bondarenko.algo.sort.collinear.LineSegment;
+import com.bondarenko.algo.sort.collinear.Point;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,3 +1,5 @@
+package com.bondarenko.algo.sort.collinear;
+
 import java.util.Comparator;
 
 import edu.princeton.cs.algs4.In;
@@ -107,7 +109,7 @@ public class Point implements Comparable<Point> {
   }
 
   /**
-   * Unit tests the Point data type.
+   * Unit tests the com.bondarenko.algo.sort.collinear.Point data type.
    */
   public static void main(String[] args) {
     In in = new In(args[0]);
