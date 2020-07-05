@@ -58,12 +58,13 @@ public class FastCollinearPoints {
 
       int pointsCount = 2;
       double lastSlope = point.slopeTo(curPoints[1]);
+
       for (int i = pointsCount; i < curPoints.length; i++) {
         double curSlope = point.slopeTo(curPoints[i]);
         if (Double.compare(lastSlope, curSlope) == 0) {
           Point firstMatchingPoint = curPoints[i - (pointsCount - 1)];
           if (point.compareTo(firstMatchingPoint) > 0) {
-            break;
+            continue;
           }
           pointsCount++;
           if (pointsCount >= MIN_TARGET_POINT_COUNT && i == curPoints.length - 1) {
@@ -71,13 +72,12 @@ public class FastCollinearPoints {
           }
         } else if (pointsCount >= MIN_TARGET_POINT_COUNT) {
           segments.add(new LineSegment(point, curPoints[i - 1]));
-          break;
+          pointsCount = 2;
         } else {
-          if (pointsCount > 2) {
-            break;
-          }
-          lastSlope = curSlope;
+          pointsCount = 2;
         }
+
+        lastSlope = curSlope;
       }
     }
 

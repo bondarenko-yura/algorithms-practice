@@ -1,27 +1,32 @@
-import edu.princeton.cs.algs4.StdOut;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PointTest {
 
   @Test
   void slopeTo() {
-    Point a = new Point(1, 1);
-    Point b = new Point(2, 2);
-    Point c = new Point(3, 3);
-    Point d = new Point(4, 4);
-    Point e = new Point(6, 18);
+    Point[] points = new Point[] {
+        new Point(10000, 0),
+        new Point(8000, 2000),
+        new Point(2000, 8000),
+        new Point(0, 10000),
+        new Point(20000, 0),
+        new Point(18000, 2000),
+        new Point(2000, 18000),
+        new Point(10000, 20000),
+        new Point(30000, 0),
+        new Point(0, 30000),
+        new Point(20000, 10000),
+        new Point(13000, 0),
+        new Point(11000, 3000),
+        new Point(5000, 12000),
+        new Point(9000, 6000)
+    };
 
-    Point[] points = new Point[] {a, b, c, d, e};
-    Arrays.sort(points, Comparator.reverseOrder());
+    LineSegment[] bruteSeq = new BruteCollinearPoints(points.clone()).segments();
+    LineSegment[] fastSeq = new FastCollinearPoints(points.clone()).segments();
 
-    StdOut.println(Arrays.toString(points));
-
-    new FastCollinearPoints(points);
-
+    assertThat(bruteSeq.length).isEqualTo(fastSeq.length);
   }
 }
