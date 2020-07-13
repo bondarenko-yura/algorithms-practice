@@ -53,26 +53,26 @@ class SortTest {
 
   @Order(5)
   @Test
+  void sortHeap() {
+    testSort(new SortHeap(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(6)
+  @Test
   void sortMergeUpBottom() {
     testSort(new SortMergeUpBottom(), PROBLEM_SIZE_MID_TEAR);
   }
 
-  @Order(6)
+  @Order(7)
   @Test
   void sortMergeUbBottomOptimized() {
     testSort(new SortMergeUpBottomOptimized(), PROBLEM_SIZE_MID_TEAR);
   }
 
-  @Order(7)
-  @Test
-  void sortMergeBottomUm() {
-    testSort(new SortMergeBottomUp(), PROBLEM_SIZE_MID_TEAR);
-  }
-
   @Order(8)
   @Test
-  void sortHeap() {
-    testSort(new SortHeap(), PROBLEM_SIZE_MID_TEAR);
+  void sortMergeBottomUp() {
+    testSort(new SortMergeBottomUp(), PROBLEM_SIZE_MID_TEAR);
   }
 
   @Order(9)
