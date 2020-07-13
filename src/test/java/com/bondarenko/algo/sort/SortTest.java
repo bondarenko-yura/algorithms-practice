@@ -71,17 +71,23 @@ class SortTest {
 
   @Order(8)
   @Test
+  void sortHeap() {
+    testSort(new SortHeap(), PROBLEM_SIZE_MID_TEAR);
+  }
+
+  @Order(9)
+  @Test
   void sortQuick() {
     testSort(new SortQuick(), PROBLEM_SIZE_MID_TEAR);
   }
 
-  @Order(9)
+  @Order(10)
   @Test
   void sortQuickCutoff() {
     testSort(new SortQuickCutoff(), PROBLEM_SIZE_MID_TEAR);
   }
 
-  @Order(10)
+  @Order(11)
   @Test
   void sortQuick3Tear() {
     testSort(new SortQuick3WayPartitioning(), PROBLEM_SIZE_MID_TEAR);
