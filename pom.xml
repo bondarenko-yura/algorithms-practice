@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bondarenko.algorithms</groupId>
 	<artifactId>algorithms-practice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<description>
+		Algorithm practice
+		To run tests or build:
+		Do first: mvn clean (to install custom libs from ./libs directory)
+	</description>
 
 	<properties>
 		<!--PROJECT-->
@@ -19,6 +25,7 @@
 		<!--PLUGINS-->
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<version.maven-install-plugin>2.5.2</version.maven-install-plugin>
 	</properties>
 
 	<dependencyManagement>
@@ -33,24 +40,29 @@
 		</dependencies>
 	</dependencyManagement>
 
-		<dependencies>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-api</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.assertj</groupId>
-				<artifactId>assertj-core</artifactId>
-				<version>3.16.1</version>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>edu.princeton.cs.algs4</groupId>
+			<artifactId>algs4</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.16.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -61,7 +73,7 @@
 					<release>${project.java.version}</release>
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<debug>true</debug>
-					<showDeprecation>true</showDeprecation>
+					<showDeprecation>false</showDeprecation>
 					<showWarnings>true</showWarnings>
 					<optimize>true</optimize>
 				</configuration>
@@ -75,6 +87,28 @@
 						<java.io.tmpdir>${project.build.directory}/tmp</java.io.tmpdir>
 					</systemPropertyVariables>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>${version.maven-install-plugin}</version>
+				<executions>
+					<execution>
+						<id>install-external-non-maven1-jar</id>
+						<phase>clean</phase>
+						<configuration>
+							<repositoryLayout>default</repositoryLayout>
+							<groupId>edu.princeton.cs.algs4</groupId>
+							<artifactId>algs4</artifactId>
+							<version>1.0.0</version>
+							<file>${project.basedir}/libs/algs4.jar</file>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+						</configuration>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
