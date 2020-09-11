@@ -19,44 +19,25 @@ public class BinaryTest {
 
 
 	@Test
-	public void mergeAndSplit() {
-		final int maxPossibleInput = 1000;
-		final int inputOrig = 555;
-		int inputA = inputOrig;
-		final int inputB = 777;
-		final int maxPossibleInputDecimalLen = Integer.toBinaryString(maxPossibleInput).length();
-		final int allOnesDecimal = constructAllOneNumOfBinaryLen(maxPossibleInputDecimalLen);
+	public void combineAndSplit() {
+		int maxPossibleInput = 1000;
+		int maxPossibleInputDecimalLen = Integer.toBinaryString(maxPossibleInput).length();
+		int allOnesDecimal = constructAllOneNumOfBinaryLen(maxPossibleInputDecimalLen);
 
-		printBinary(Integer.MAX_VALUE);
-		printBinary(maxPossibleInput);
-		printBinary(inputA);
-		printBinary(inputB);
-		printBinary(allOnesDecimal);
+		int inputA = 555;
+		int inputB = 777;
 
-		inputA <<= maxPossibleInputDecimalLen;
-		printBinary(inputA);
+		int inputCombined = (inputA << maxPossibleInputDecimalLen) | inputB;
 
-		inputA |= inputB;
-		printBinary(inputA);
+		int restoredA = inputCombined >> maxPossibleInputDecimalLen;
+		int restoredB = inputCombined & allOnesDecimal;
 
-		printBinary(allOnesDecimal);
-
-		int resB = inputA & allOnesDecimal;
-		int resA = inputA >> maxPossibleInputDecimalLen;
-
-		printBinary(resA);
-		printBinary(resB);
-
-		assertThat(resA).isEqualTo(inputOrig);
-		assertThat(resB).isEqualTo(inputB);
+		assertThat(restoredA).isEqualTo(inputA);
+		assertThat(restoredB).isEqualTo(inputB);
 	}
 
 	private int constructAllOneNumOfBinaryLen(int len) {
-		return Integer.valueOf(IntStream.range(0, len).mapToObj(i -> "1").collect(Collectors.joining()), 2);
-	}
-
-	private void printBinary(int val) {
-		String binaryString = Integer.toBinaryString(val);
-		System.out.println("int " + val + " = " + binaryString + " (" + binaryString.length() + ")");
+		return Integer.valueOf(
+				IntStream.range(0, len).mapToObj(i -> "1").collect(Collectors.joining()), 2);
 	}
 }
