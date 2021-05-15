@@ -4,16 +4,16 @@ public class SortQuick implements Sort {
 
 	@Override
 	public void sort(int[] arr) {
-		sort(arr, 0, arr.length);
+		sort(arr, 0, arr.length - 1);
 	}
 
 	private void sort(int[] arr, int lo, int hi) {
-		if (hi - lo < 2) {
+		if (hi <= lo) {
 			return;
 		}
 
 		int mid = partition(arr, lo, hi);
-		sort(arr, lo, mid);
+		sort(arr, lo, mid - 1);
 		sort(arr, mid + 1, hi);
 	}
 
@@ -21,11 +21,11 @@ public class SortQuick implements Sort {
 		int p = arr[lo];
 
 		int curLo = lo;
-		int curHi = hi;
+		int curHi = hi + 1;
 
 		while (curLo < curHi) {
 			while (arr[++curLo] < p) {
-				if (curLo == hi - 1) {
+				if (curLo == hi) {
 					break;
 				}
 			}
