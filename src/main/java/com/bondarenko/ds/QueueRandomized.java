@@ -1,18 +1,17 @@
 package com.bondarenko.ds;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class RandomizedQueue<Item> implements Iterable<Item> {
+import edu.princeton.cs.algs4.StdRandom;
+
+public class QueueRandomized<Item> implements Iterable<Item> {
 
 	private Item[] data;
 	private int tailIdx;
 
 	// construct an empty randomized queue
-	public RandomizedQueue() {
+	public QueueRandomized() {
 		this.data = createArray(16);
 	}
 
@@ -55,48 +54,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		return new RandomizedQueueIterator(tailIdx, data);
 	}
 
-	// unit testing (required)
-	public static void main(String[] args) {
-		RandomizedQueue<Integer> d = new RandomizedQueue<>();
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.enqueue(10);
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.enqueue(20);
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.enqueue(30);
-		d.enqueue(40);
-		d.enqueue(50);
-		d.enqueue(60);
-		d.enqueue(70);
-		d.enqueue(80);
-		d.enqueue(90);
-		d.enqueue(100);
-		d.enqueue(0);
-		for (Integer integer : d) {
-			StdOut.printf("Val %d%n", integer);
-		}
-		StdOut.printf("First %d%n", d.dequeue());
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Sample %d%n", d.sample());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Sample %d%n", d.sample());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Last %d%n", d.dequeue());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-	}
-
 	private void resize() {
 		double load = size() / (double) data.length;
 		Item[] resize = null;
@@ -131,6 +88,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		items[rndIdx] = tmp;
 	}
 
+	@SuppressWarnings("unchecked")
 	private Item[] createArray(int size) {
 		return (Item[]) new Object[size];
 	}

@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.ds;
 
 public class QueueLinkedListImpl<E> implements Queue<E> {
 

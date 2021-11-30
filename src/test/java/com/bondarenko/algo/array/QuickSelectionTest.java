@@ -1,11 +1,11 @@
-package com.bondarenko.algo.sort;
-
-import org.junit.jupiter.api.Test;
+package com.bondarenko.algo.array;
 
 import java.util.Arrays;
 import java.util.Random;
 
-import com.bondarenko.algo.array.QuickSelection;
+import com.bondarenko.algo.sort.SortQuick;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

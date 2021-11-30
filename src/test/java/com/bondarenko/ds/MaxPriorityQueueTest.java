@@ -1,10 +1,10 @@
-package com.bondarenko.algo.sort;
-
-import org.junit.jupiter.api.Test;
+package com.bondarenko.ds;
 
 import java.util.Random;
 
-import com.bondarenko.ds.MaxPriorityQueue;
+import com.bondarenko.algo.sort.SortQuick;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +23,7 @@ class MaxPriorityQueueTest {
 		}
 		new SortQuick().sort(input);
 		for (int i = input.length - 1; i >= 0; i--) {
-			assertThat(queue.size() == i);
+			assertThat(queue.size()).isEqualTo(i);
 			assertThat(queue.delMax()).isEqualTo(input[i]);
 		}
 

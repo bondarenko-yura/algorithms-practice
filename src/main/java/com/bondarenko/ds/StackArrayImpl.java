@@ -1,7 +1,6 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.ds;
 
 public class StackArrayImpl<E> implements Stack<E> {
-
 
 	private Object[] data = new Object[1];
 	private int idx;
@@ -25,7 +24,7 @@ public class StackArrayImpl<E> implements Stack<E> {
 			return null;
 		}
 
-		E element = (E) data[--idx];
+		E element = getByIdx(--idx);
 		data[idx] = null;
 		return element;
 	}
@@ -44,5 +43,10 @@ public class StackArrayImpl<E> implements Stack<E> {
 		Object[] resized = new Object[size];
 		System.arraycopy(data, 0, resized, 0, idx);
 		data = resized;
+	}
+
+	@SuppressWarnings("unchecked")
+	private E getByIdx(int idx) {
+		return (E) data[idx];
 	}
 }

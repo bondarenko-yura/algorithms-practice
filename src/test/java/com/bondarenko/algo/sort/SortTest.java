@@ -1,24 +1,26 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.algo.sort;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.Stopwatch;
+import java.util.Random;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.util.Random;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.Stopwatch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SortTest {
 
-	private static final int PROBLEM_SIZE_SUPER_LOW_TEAR = 200_000;
-	private static final int PROBLEM_SIZE_LOW_TEAR = 500_000;
-	private static final int PROBLEM_SIZE_MID_TEAR = 200_000_000;
-	private static final int PROBLEM_SIZE_HIGH_TEAR = 500_000_000;
+	private static final boolean RUN_FAST = true;
+
+	private static final int PROBLEM_SIZE_SUPER_LOW_TEAR = problemSize(200_000);
+	private static final int PROBLEM_SIZE_LOW_TEAR = problemSize(500_000);
+	private static final int PROBLEM_SIZE_MID_TEAR = problemSize(200_000_000);
 
 	private Random random;
 
@@ -123,5 +125,9 @@ class SortTest {
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	private static int problemSize(int targetSize) {
+		return RUN_FAST ? 1 : targetSize;
 	}
 }

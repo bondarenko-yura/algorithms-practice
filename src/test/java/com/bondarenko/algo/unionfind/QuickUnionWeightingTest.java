@@ -1,6 +1,4 @@
-package com.bondarenko.algo.princeton.c1.dynamicconnectivity;
-
-import com.bondarenko.algo.unionfind.QuickUnionWeighting;
+package com.bondarenko.algo.unionfind;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.dynamicconnectivity;
+package com.bondarenko.algo.unionfind;
 
 /**
  * Build the tree. if both values have the same root - they are connected

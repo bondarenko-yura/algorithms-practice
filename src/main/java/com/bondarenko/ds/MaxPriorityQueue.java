@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.ds;
 
 public class MaxPriorityQueue<T extends Comparable<T>> {
 
@@ -89,6 +89,7 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private T[] createArray(int size) {
 		return (T[]) new Comparable[size];
 	}

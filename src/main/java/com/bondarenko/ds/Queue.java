@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.ds;
 
 public interface Queue<E> {
 	void enqueue(E element);

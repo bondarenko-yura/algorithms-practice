@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.dynamicconnectivity;
+package com.bondarenko.algo.unionfind;
 
 /**
  * Build the tree. We keep track of tree size (number of objects).

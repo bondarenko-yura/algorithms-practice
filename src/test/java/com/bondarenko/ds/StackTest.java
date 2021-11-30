@@ -1,8 +1,4 @@
-package com.bondarenko.algo.sort;
-
-import com.bondarenko.ds.Stack;
-import com.bondarenko.ds.StackArrayImpl;
-import com.bondarenko.ds.StackLinkedListImpl;
+package com.bondarenko.ds;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,31 +1,28 @@
 package com.bondarenko.ds;
 
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Deque<Item> implements Iterable<Item> {
+public class DequeLinked<Item> implements Deque<Item> {
 
 	private Node<Item> head;
 	private Node<Item> tail;
 	private int size;
 
-	// construct an empty deque
-	public Deque() {
+	public DequeLinked() {
 	}
 
-	// is the deque empty?
+	@Override
 	public boolean isEmpty() {
 		return size() == 0;
 	}
 
-	// return the number of items on the deque
+	@Override
 	public int size() {
 		return size;
 	}
 
-	// add the item to the front
+	@Override
 	public void addFirst(Item item) {
 		validateNotNull(item);
 		size++;
@@ -40,8 +37,7 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 	}
 
-	// add the item to the back
-
+	@Override
 	public void addLast(Item item) {
 		validateNotNull(item);
 		size++;
@@ -56,7 +52,7 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 	}
 
-	// remove and return the item from the front
+	@Override
 	public Item removeFirst() {
 		validateNotEmpty();
 		size--;
@@ -69,8 +65,8 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 		return currHead.item;
 	}
-	// remove and return the item from the back
 
+	@Override
 	public Item removeLast() {
 		validateNotEmpty();
 		size--;
@@ -83,32 +79,10 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 		return currTail.item;
 	}
-	// return an iterator over items in order from front to back
 
+	@Override
 	public Iterator<Item> iterator() {
 		return new DequeueIterator();
-	}
-	// unit testing (required)
-
-	public static void main(String[] args) {
-		Deque<Integer> d = new Deque<>();
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.addFirst(10);
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.addLast(20);
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		for (Integer integer : d) {
-			StdOut.printf("Val %d%n", integer);
-		}
-		StdOut.printf("First %d%n", d.removeFirst());
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		StdOut.printf("Last %d%n", d.removeLast());
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
 	}
 
 	private void validateNotNull(Item item) {

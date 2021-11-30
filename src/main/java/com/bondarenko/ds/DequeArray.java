@@ -1,11 +1,9 @@
-package com.bondarenko.algo.princeton.c1.sort;
-
-import edu.princeton.cs.algs4.StdOut;
+package com.bondarenko.ds;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DequeArray<Item> implements Iterable<Item> {
+public class DequeArray<Item> implements Deque<Item> {
 
 	private static final double SCALE_UP_LOAD = 0.8;
 	private static final double SCALE_DOWN_LOAD = 0.3;
@@ -15,39 +13,37 @@ public class DequeArray<Item> implements Iterable<Item> {
 	private int headIdx;
 	private int tailIdx;
 
-	// construct an empty deque
 	public DequeArray() {
 		this.headIdx = INITIAL_CAPACITY / 2;
 		this.tailIdx = headIdx;
 		this.data = createArray(INITIAL_CAPACITY);
 	}
 
-	// is the deque empty?
+	@Override
 	public boolean isEmpty() {
 		return size() == 0;
 	}
 
-	// return the number of items on the deque
+	@Override
 	public int size() {
 		return tailIdx - headIdx;
 	}
 
-	// add the item to the front
+	@Override
 	public void addFirst(Item item) {
 		validateNotNull(item);
 		resize();
 		data[--headIdx] = item;
 	}
 
-	// add the item to the back
-
+	@Override
 	public void addLast(Item item) {
 		validateNotNull(item);
 		resize();
 		data[tailIdx++] = item;
 	}
 
-	// remove and return the item from the front
+	@Override
 	public Item removeFirst() {
 		validateNotEmpty();
 		resize();
@@ -56,8 +52,9 @@ public class DequeArray<Item> implements Iterable<Item> {
 		headIdx++;
 		return item;
 	}
-	// remove and return the item from the back
 
+	// remove and return the item from the back
+	@Override
 	public Item removeLast() {
 		validateNotEmpty();
 		resize();
@@ -67,31 +64,11 @@ public class DequeArray<Item> implements Iterable<Item> {
 	}
 	// return an iterator over items in order from front to back
 
+	@Override
 	public Iterator<Item> iterator() {
 		return new DequeueIterator();
 	}
 	// unit testing (required)
-
-	public static void main(String[] args) {
-		DequeArray<Integer> d = new DequeArray<>();
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.addFirst(10);
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		d.addLast(20);
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		for (Integer integer : d) {
-			StdOut.printf("Val %d%n", integer);
-		}
-		StdOut.printf("First %d%n", d.removeFirst());
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-		StdOut.printf("Last %d%n", d.removeLast());
-		StdOut.printf("Size %d%n", d.size());
-		StdOut.printf("Empty %b%n", d.isEmpty());
-	}
 
 	private void resize() {
 		double load = size() / (double) data.length;
@@ -127,6 +104,7 @@ public class DequeArray<Item> implements Iterable<Item> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private Item[] createArray(int size) {
 		return (Item[]) new Object[size];
 	}

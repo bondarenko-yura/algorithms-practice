@@ -1,8 +1,4 @@
-package com.bondarenko.algo.sort;
-
-import com.bondarenko.ds.Queue;
-import com.bondarenko.ds.QueueArrayImpl;
-import com.bondarenko.ds.QueueLinkedListImpl;
+package com.bondarenko.ds;
 
 import org.junit.jupiter.api.Test;
 

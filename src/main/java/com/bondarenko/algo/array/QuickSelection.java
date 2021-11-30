@@ -1,6 +1,6 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.algo.array;
 
-public class Selection {
+public class QuickSelection {
 
 	public int[] findGreatestValues(int[] arr, int n) {
 		assert arr.length >= n;

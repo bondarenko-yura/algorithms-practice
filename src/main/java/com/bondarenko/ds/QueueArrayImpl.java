@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.ds;
 
 public class QueueArrayImpl<E> implements Queue<E> {
 
@@ -21,7 +21,7 @@ public class QueueArrayImpl<E> implements Queue<E> {
 		if (isEmpty()) {
 			return null;
 		}
-		E element = (E) data[headIdx];
+		E element = getByIdx(headIdx);
 		data[headIdx] = null;
 		headIdx++;
 		return element;
@@ -53,5 +53,10 @@ public class QueueArrayImpl<E> implements Queue<E> {
 			tailIdx = size();
 			headIdx = 0;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private E getByIdx(int idx) {
+		return (E) data[idx];
 	}
 }
