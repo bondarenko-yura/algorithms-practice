@@ -23,7 +23,7 @@ class MaxPriorityQueueTest {
 		}
 		new SortQuick().sort(input);
 		for (int i = input.length - 1; i >= 0; i--) {
-			assertThat(queue.size()).isEqualTo(i);
+			assertThat(queue.size()).isEqualTo(i + 1);
 			assertThat(queue.delMax()).isEqualTo(input[i]);
 		}
 
