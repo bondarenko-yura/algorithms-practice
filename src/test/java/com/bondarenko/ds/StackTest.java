@@ -1,4 +1,8 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.algo.sort;
+
+import com.bondarenko.ds.Stack;
+import com.bondarenko.ds.StackArrayImpl;
+import com.bondarenko.ds.StackLinkedListImpl;
 
 import org.junit.jupiter.api.Test;
 

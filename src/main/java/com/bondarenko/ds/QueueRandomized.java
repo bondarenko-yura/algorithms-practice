@@ -1,4 +1,4 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.ds;
 
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;

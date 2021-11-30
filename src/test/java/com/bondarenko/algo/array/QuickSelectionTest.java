@@ -1,17 +1,19 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.algo.sort;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Random;
 
+import com.bondarenko.algo.array.QuickSelection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SelectionTest {
+class QuickSelectionTest {
 
 	private final Random random = new Random(55);
 	private final SortQuick sort = new SortQuick();
-	private final Selection selection = new Selection();
+	private final QuickSelection quickSelection = new QuickSelection();
 
 	@Test
 	void findGreatestValues() {
@@ -27,7 +29,7 @@ class SelectionTest {
 		}
 		int[] inputCopy = Arrays.copyOf(arr, arr.length);
 
-		int[] result = selection.findGreatestValues(arr, valCount);
+		int[] result = quickSelection.findGreatestValues(arr, valCount);
 		assertThat(result.length).isEqualTo(valCount);
 
 		sort.sort(result);

@@ -1,14 +1,16 @@
 package com.bondarenko.algo.princeton.c1.dynamicconnectivity;
 
+import com.bondarenko.algo.unionfind.QuickFind;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class QuickUnionWeightingPathCompressionTest {
+class QuickFindTest {
 
 	@Test
 	void test() {
-		var quickFind = new QuickUnionWeightingPathCompression(10);
+		var quickFind = new QuickFind(10);
 		quickFind.union(3, 4);
 		quickFind.union(3, 8);
 		quickFind.union(5, 6);

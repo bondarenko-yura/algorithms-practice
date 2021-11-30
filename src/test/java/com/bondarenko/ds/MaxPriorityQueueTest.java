@@ -1,8 +1,10 @@
-package com.bondarenko.algo.princeton.c1.sort;
+package com.bondarenko.algo.sort;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
+
+import com.bondarenko.ds.MaxPriorityQueue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
