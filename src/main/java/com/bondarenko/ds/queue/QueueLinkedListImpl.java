@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.queue;
 
 public class QueueLinkedListImpl<E> implements Queue<E> {
 

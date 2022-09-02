@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.queue;
 
 public class QueueArrayImpl<E> implements Queue<E> {
 

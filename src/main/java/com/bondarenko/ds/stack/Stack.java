@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.stack;
 
 public interface Stack<E> {
 	void push(E element);

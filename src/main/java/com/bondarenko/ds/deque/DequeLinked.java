@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.deque;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

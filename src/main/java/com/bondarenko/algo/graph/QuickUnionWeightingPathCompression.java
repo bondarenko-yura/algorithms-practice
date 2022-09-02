@@ -1,4 +1,4 @@
-package com.bondarenko.algo.unionfind;
+package com.bondarenko.algo.graph;
 
 /**
  * Build the tree. We keep track of tree size (number of objects).
@@ -13,44 +13,41 @@ package com.bondarenko.algo.unionfind;
  * max tree depth - ~2
  */
 public class QuickUnionWeightingPathCompression {
-	private final int[] treeSize;
+	private final int[] height;
 	private final int[] tree;
 
 	public QuickUnionWeightingPathCompression(int size) {
 		this.tree = new int[size];
-		this.treeSize = new int[size];
+		this.height = new int[size];
 		for (int i = 0; i < size; i++) {
 			tree[i] = i;
-			treeSize[i] = 1;
+			height[i] = 1;
 		}
 	}
 
 	public void union(int p, int q) {
 		if (!isConnected(p, q)) {
-			var i = rootValue(p);
-			var j = rootValue(q);
+			var pr = find(p);
+			var qr = find(q);
 
-			if (treeSize[i] > treeSize[j]) {
-				tree[j] = i;
-				treeSize[i] += treeSize[j];
+			if (height[pr] >= height[qr]) {
+				tree[qr] = pr;
+				if (height[pr] == height[qr])
+					height[pr]++;
 			} else {
-				tree[i] = j;
-				treeSize[j] += treeSize[i];
+				tree[pr] = qr;
 			}
 		}
 	}
 
 	public boolean isConnected(int a, int b) {
-		return rootValue(a) == rootValue(b);
+		return find(a) == find(b);
 	}
 
-	private int rootValue(int i) {
-		while (i != tree[i]) {
-			// make every node point to it's grandparent
-			// makes tree almost f
-			tree[i] = tree[tree[i]];
-			i = tree[i];
-		}
-		return i;
+	private int find(int i) {
+		if (i == tree[i])
+			return i;
+
+		return tree[i] = find(tree[i]);
 	}
 }

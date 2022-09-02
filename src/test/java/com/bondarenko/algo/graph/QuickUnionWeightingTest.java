@@ -1,14 +1,14 @@
-package com.bondarenko.algo.unionfind;
+package com.bondarenko.algo.graph;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class QuickUnionTest {
+class QuickUnionWeightingTest {
 
 	@Test
 	void test() {
-		var quickFind = new QuickUnion(10);
+		var quickFind = new QuickUnionWeighting(10);
 		quickFind.union(3, 4);
 		quickFind.union(3, 8);
 		quickFind.union(5, 6);

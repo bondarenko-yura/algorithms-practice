@@ -1,4 +1,4 @@
-package com.bondarenko.algo.unionfind;
+package com.bondarenko.algo.graph;
 
 /**
  * Build the tree. We keep track of tree size (number of objects).

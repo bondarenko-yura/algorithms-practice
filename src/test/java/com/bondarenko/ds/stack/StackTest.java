@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.stack;
 
 import org.junit.jupiter.api.Test;
 

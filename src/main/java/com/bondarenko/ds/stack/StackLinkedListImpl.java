@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.stack;
 
 public class StackLinkedListImpl<E> implements Stack<E> {
 

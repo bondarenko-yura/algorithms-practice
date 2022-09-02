@@ -48,13 +48,13 @@ public class Edge implements Comparable<Edge> {
 	}
 
 	@Override
-	public String toString() {
-		return "[" + v1 + "," + v2 + "," + weight + "]";
+	public int compareTo(Edge that) {
+		return this.getWeight() - that.getWeight();
 	}
 
 	@Override
-	public int compareTo(Edge that) {
-		return this.getWeight() - that.getWeight();
+	public String toString() {
+		return "[" + v1 + "," + v2 + "," + weight + "]";
 	}
 
 }

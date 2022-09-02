@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.heap;
 
 public class MaxPriorityQueue<T extends Comparable<T>> {
 

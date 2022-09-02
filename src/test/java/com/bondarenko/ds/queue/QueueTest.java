@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.queue;
 
 import org.junit.jupiter.api.Test;
 

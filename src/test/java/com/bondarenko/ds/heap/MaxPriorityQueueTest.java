@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.heap;
 
 import java.util.Random;
 

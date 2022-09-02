@@ -1,4 +1,4 @@
-package com.bondarenko.algo.unionfind;
+package com.bondarenko.algo.graph;
 
 /**
  * Build the tree. if both values have the same root - they are connected

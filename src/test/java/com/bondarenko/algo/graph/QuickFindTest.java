@@ -1,4 +1,4 @@
-package com.bondarenko.algo.unionfind;
+package com.bondarenko.algo.graph;
 
 import org.junit.jupiter.api.Test;
 

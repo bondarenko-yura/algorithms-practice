@@ -1,4 +1,4 @@
-package com.bondarenko.ds;
+package com.bondarenko.ds.queue;
 
 public interface Queue<E> {
 	void enqueue(E element);
