@@ -1,4 +1,4 @@
-package com.bondarenko.algo.graph;
+package com.bondarenko.ds.unionfind;
 
 /**
  * init = n

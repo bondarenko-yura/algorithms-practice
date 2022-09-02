@@ -3,10 +3,10 @@ package com.bondarenko.ds.deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DequeLinked<Item> implements Deque<Item> {
+public class DequeLinked<E> implements Deque<E> {
 
-	private Node<Item> head;
-	private Node<Item> tail;
+	private Node<E> head;
+	private Node<E> tail;
 	private int size;
 
 	public DequeLinked() {
@@ -23,14 +23,14 @@ public class DequeLinked<Item> implements Deque<Item> {
 	}
 
 	@Override
-	public void addFirst(Item item) {
+	public void addFirst(E item) {
 		validateNotNull(item);
 		size++;
 		if (head == null) {
 			head = new Node<>(item);
 			tail = head;
 		} else {
-			Node<Item> curHead = head;
+			Node<E> curHead = head;
 			head = new Node<>(item);
 			head.tail = curHead;
 			curHead.head = head;
@@ -38,14 +38,14 @@ public class DequeLinked<Item> implements Deque<Item> {
 	}
 
 	@Override
-	public void addLast(Item item) {
+	public void addLast(E item) {
 		validateNotNull(item);
 		size++;
 		if (tail == null) {
 			tail = new Node<>(item);
 			head = tail;
 		} else {
-			Node<Item> nextTail = new Node<>(item);
+			Node<E> nextTail = new Node<>(item);
 			tail.tail = nextTail;
 			nextTail.head = tail;
 			tail = nextTail;
@@ -53,10 +53,10 @@ public class DequeLinked<Item> implements Deque<Item> {
 	}
 
 	@Override
-	public Item removeFirst() {
+	public E removeFirst() {
 		validateNotEmpty();
 		size--;
-		Node<Item> currHead = head;
+		Node<E> currHead = head;
 		head = currHead.tail;
 		if (head == null) {
 			tail = null;
@@ -67,10 +67,10 @@ public class DequeLinked<Item> implements Deque<Item> {
 	}
 
 	@Override
-	public Item removeLast() {
+	public E removeLast() {
 		validateNotEmpty();
 		size--;
-		Node<Item> currTail = tail;
+		Node<E> currTail = tail;
 		tail = currTail.head;
 		if (tail == null) {
 			head = null;
@@ -81,11 +81,11 @@ public class DequeLinked<Item> implements Deque<Item> {
 	}
 
 	@Override
-	public Iterator<Item> iterator() {
+	public Iterator<E> iterator() {
 		return new DequeueIterator();
 	}
 
-	private void validateNotNull(Item item) {
+	private void validateNotNull(E item) {
 		if (item == null) {
 			throw new IllegalArgumentException();
 		}
@@ -97,9 +97,9 @@ public class DequeLinked<Item> implements Deque<Item> {
 		}
 	}
 
-	private final class DequeueIterator implements Iterator<Item> {
+	private final class DequeueIterator implements Iterator<E> {
 
-		private Node<Item> itHead = head;
+		private Node<E> itHead = head;
 
 		@Override
 		public boolean hasNext() {
@@ -107,11 +107,11 @@ public class DequeLinked<Item> implements Deque<Item> {
 		}
 
 		@Override
-		public Item next() {
+		public E next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			Node<Item> head = itHead;
+			Node<E> head = itHead;
 			itHead = head.tail;
 			return head.item;
 		}
@@ -122,12 +122,12 @@ public class DequeLinked<Item> implements Deque<Item> {
 		}
 	}
 
-	private static final class Node<Item> {
-		private final Item item;
-		private Node<Item> head;
-		private Node<Item> tail;
+	private static final class Node<E> {
+		private final E item;
+		private Node<E> head;
+		private Node<E> tail;
 
-		private Node(Item item) {
+		private Node(E item) {
 			this.item = item;
 		}
 	}

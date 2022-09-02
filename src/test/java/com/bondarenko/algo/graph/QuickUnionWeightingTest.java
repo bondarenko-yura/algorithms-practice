@@ -1,5 +1,7 @@
 package com.bondarenko.algo.graph;
 
+import com.bondarenko.ds.unionfind.QuickUnionWeighting;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

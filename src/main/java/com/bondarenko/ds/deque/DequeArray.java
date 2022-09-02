@@ -3,13 +3,13 @@ package com.bondarenko.ds.deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DequeArray<Item> implements Deque<Item> {
+public class DequeArray<E> implements Deque<E> {
 
 	private static final double SCALE_UP_LOAD = 0.8;
 	private static final double SCALE_DOWN_LOAD = 0.3;
 	private static final int INITIAL_CAPACITY = 16;
 
-	private Item[] data;
+	private E[] data;
 	private int headIdx;
 	private int tailIdx;
 
@@ -30,24 +30,24 @@ public class DequeArray<Item> implements Deque<Item> {
 	}
 
 	@Override
-	public void addFirst(Item item) {
+	public void addFirst(E item) {
 		validateNotNull(item);
 		resize();
 		data[--headIdx] = item;
 	}
 
 	@Override
-	public void addLast(Item item) {
+	public void addLast(E item) {
 		validateNotNull(item);
 		resize();
 		data[tailIdx++] = item;
 	}
 
 	@Override
-	public Item removeFirst() {
+	public E removeFirst() {
 		validateNotEmpty();
 		resize();
-		Item item = data[headIdx];
+		E item = data[headIdx];
 		data[headIdx] = null;
 		headIdx++;
 		return item;
@@ -55,17 +55,17 @@ public class DequeArray<Item> implements Deque<Item> {
 
 	// remove and return the item from the back
 	@Override
-	public Item removeLast() {
+	public E removeLast() {
 		validateNotEmpty();
 		resize();
-		Item item = data[--tailIdx];
+		E item = data[--tailIdx];
 		data[tailIdx] = null;
 		return item;
 	}
 	// return an iterator over items in order from front to back
 
 	@Override
-	public Iterator<Item> iterator() {
+	public Iterator<E> iterator() {
 		return new DequeueIterator();
 	}
 	// unit testing (required)
@@ -75,7 +75,7 @@ public class DequeArray<Item> implements Deque<Item> {
 		if (data.length == tailIdx
 				|| headIdx == 0
 				|| (load > 0 && load < SCALE_DOWN_LOAD)) {
-			Item[] resize;
+			E[] resize;
 			if (load > SCALE_UP_LOAD) {
 				resize = createArray((int) (data.length * 1.5));
 			} else if (load < SCALE_DOWN_LOAD && data.length > INITIAL_CAPACITY) {
@@ -92,7 +92,7 @@ public class DequeArray<Item> implements Deque<Item> {
 		}
 	}
 
-	private void validateNotNull(Item item) {
+	private void validateNotNull(E item) {
 		if (item == null) {
 			throw new IllegalArgumentException();
 		}
@@ -105,11 +105,11 @@ public class DequeArray<Item> implements Deque<Item> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Item[] createArray(int size) {
-		return (Item[]) new Object[size];
+	private E[] createArray(int size) {
+		return (E[]) new Object[size];
 	}
 
-	private final class DequeueIterator implements Iterator<Item> {
+	private final class DequeueIterator implements Iterator<E> {
 		private int cursor = headIdx;
 
 		@Override
@@ -118,7 +118,7 @@ public class DequeArray<Item> implements Deque<Item> {
 		}
 
 		@Override
-		public Item next() {
+		public E next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
