@@ -1,12 +1,12 @@
 package com.bondarenko.leetcode.n0000.n500;
 
+/*
+ URL: https://leetcode.com/problems/squirrel-simulation
+ Time: N
+ Space: N
+ */
 public class SquirrelSimulation573 {
 
-	/*
-	URL: https://leetcode.com/problems/squirrel-simulation
-	Time: N
-	Space: N
-	 */
 	public int minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts) {
 		var dist = 0;
 		var d = Integer.MIN_VALUE;
