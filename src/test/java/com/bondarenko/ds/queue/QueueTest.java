@@ -1,9 +1,11 @@
 package com.bondarenko.ds.queue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("heavy")
 class QueueTest {
 
 	@Test

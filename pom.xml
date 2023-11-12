@@ -17,7 +17,10 @@
 	<properties>
 		<!--PROJECT-->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.java.version>11</project.java.version>
+		<project.java.version>17</project.java.version>
+
+		<!--CONFIGS-->
+		<surefire.printSummary>false</surefire.printSummary>
 
 		<!--DEPENDENCIES-->
 		<junit-bom.version>5.10.1</junit-bom.version>
@@ -25,9 +28,9 @@
 		<assertj-core.version>3.24.2</assertj-core.version>
 
 		<!--PLUGINS-->
-		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-		<version.maven-install-plugin>2.5.2</version.maven-install-plugin>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
+		<version.maven-install-plugin>3.1.1</version.maven-install-plugin>
 	</properties>
 
 	<dependencyManagement>
@@ -82,7 +85,6 @@
 					<debug>true</debug>
 					<showDeprecation>false</showDeprecation>
 					<showWarnings>true</showWarnings>
-					<optimize>true</optimize>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -103,7 +105,6 @@
 						<id>install-external-non-maven-jar</id>
 						<phase>clean</phase>
 						<configuration>
-							<repositoryLayout>default</repositoryLayout>
 							<groupId>edu.princeton.cs.algs4</groupId>
 							<artifactId>algs4</artifactId>
 							<version>1.0.0</version>

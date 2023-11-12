@@ -17,7 +17,6 @@ public class BinaryTest {
 		assertThat(input).isEqualTo(resultVal);
 	}
 
-
 	@Test
 	public void combineAndSplit() {
 		int maxPossibleInput = 1000;

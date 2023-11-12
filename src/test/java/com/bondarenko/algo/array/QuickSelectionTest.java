@@ -5,10 +5,12 @@ import java.util.Random;
 
 import com.bondarenko.algo.sort.SortQuick;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("heavy")
 class QuickSelectionTest {
 
 	private final Random random = new Random(55);

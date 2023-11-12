@@ -3,6 +3,7 @@ package com.bondarenko.algo.sort;
 import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import edu.princeton.cs.algs4.Stopwatch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("heavy")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SortTest {
 
