@@ -43,6 +43,7 @@ public class DijkstraShortestPath {
 	}
 
 	private static final class Score implements Comparable<Score> {
+
 		private final Edge edge;
 		private final int score;
 
@@ -62,4 +63,5 @@ public class DijkstraShortestPath {
 		}
 
 	}
+
 }

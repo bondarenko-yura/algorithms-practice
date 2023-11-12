@@ -110,6 +110,7 @@ public class DequeArray<E> implements Deque<E> {
 	}
 
 	private final class DequeueIterator implements Iterator<E> {
+
 		private int cursor = headIdx;
 
 		@Override
@@ -129,5 +130,7 @@ public class DequeArray<E> implements Deque<E> {
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
+
 	}
+
 }

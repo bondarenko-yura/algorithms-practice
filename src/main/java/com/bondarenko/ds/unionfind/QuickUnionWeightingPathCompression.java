@@ -13,6 +13,7 @@ package com.bondarenko.ds.unionfind;
  * max tree depth - ~2
  */
 public class QuickUnionWeightingPathCompression {
+
 	private final int[] height;
 	private final int[] tree;
 
@@ -50,4 +51,5 @@ public class QuickUnionWeightingPathCompression {
 
 		return tree[i] = find(tree[i]);
 	}
+
 }

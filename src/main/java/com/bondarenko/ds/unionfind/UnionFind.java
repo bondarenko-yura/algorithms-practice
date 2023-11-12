@@ -1,6 +1,6 @@
 package com.bondarenko.ds.unionfind;
 
-import static com.bondarenko.ds.unionfind.UnionFind.*;
+import static com.bondarenko.ds.unionfind.UnionFind.Unique;
 
 public interface UnionFind<K, V extends Unique<K>> {
 
@@ -15,7 +15,9 @@ public interface UnionFind<K, V extends Unique<K>> {
 	int connectedComponentsSize();
 
 	interface Unique<K> {
+
 		K getKey();
+
 	}
 
 }

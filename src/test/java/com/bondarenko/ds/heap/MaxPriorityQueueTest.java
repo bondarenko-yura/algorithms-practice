@@ -30,4 +30,5 @@ class MaxPriorityQueueTest {
 		}
 		assertThat(queue.isEmpty()).isTrue();
 	}
+
 }

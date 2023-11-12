@@ -97,6 +97,18 @@ public class DequeLinked<E> implements Deque<E> {
 		}
 	}
 
+	private static final class Node<E> {
+
+		private final E item;
+		private Node<E> head;
+		private Node<E> tail;
+
+		private Node(E item) {
+			this.item = item;
+		}
+
+	}
+
 	private final class DequeueIterator implements Iterator<E> {
 
 		private Node<E> itHead = head;
@@ -120,15 +132,7 @@ public class DequeLinked<E> implements Deque<E> {
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
+
 	}
 
-	private static final class Node<E> {
-		private final E item;
-		private Node<E> head;
-		private Node<E> tail;
-
-		private Node(E item) {
-			this.item = item;
-		}
-	}
 }

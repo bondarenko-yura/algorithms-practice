@@ -45,4 +45,5 @@ public class SortQuick implements Sort {
 
 		return curHi;
 	}
+
 }

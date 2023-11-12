@@ -2,6 +2,12 @@ package com.bondarenko.algo.sort;
 
 public class SortQuickCutoff implements Sort {
 
+	private static int median3(int[] a, int i, int j, int k) {
+		return a[i] < a[j]
+				? (a[j] < a[k] ? j : a[i] < a[k] ? k : i)
+				: (a[k] < a[j] ? j : a[k] < a[i] ? k : i);
+	}
+
 	@Override
 	public void sort(int[] arr) {
 		sort(arr, 0, arr.length);
@@ -60,9 +66,4 @@ public class SortQuickCutoff implements Sort {
 		}
 	}
 
-	private static int median3(int[] a, int i, int j, int k) {
-		return a[i] < a[j]
-				? (a[j] < a[k] ? j : a[i] < a[k] ? k : i)
-				: (a[k] < a[j] ? j : a[k] < a[i] ? k : i);
-	}
 }

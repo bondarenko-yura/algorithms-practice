@@ -7,6 +7,10 @@ package com.bondarenko.leetcode.n0000.n500;
  */
 public class SquirrelSimulation573 {
 
+	private static int distance(int[] a, int[] b) {
+		return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+	}
+
 	public int minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts) {
 		var dist = 0;
 		var d = Integer.MIN_VALUE;
@@ -17,7 +21,4 @@ public class SquirrelSimulation573 {
 		return dist - d;
 	}
 
-	private static int distance(int[] a, int[] b) {
-		return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
-	}
 }

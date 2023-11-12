@@ -25,4 +25,5 @@ public interface Sort {
 		}
 		return true;
 	}
+
 }

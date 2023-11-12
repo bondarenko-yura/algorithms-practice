@@ -31,4 +31,5 @@ public class QuickFind {
 	public boolean isConnected(int a, int b) {
 		return data[a] == data[b];
 	}
+
 }

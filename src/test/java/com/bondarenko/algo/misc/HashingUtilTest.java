@@ -16,4 +16,5 @@ class HashingUtilTest {
 		assertThat(hash1).isEqualTo(hash2);
 		assertThat(hash2).isNotEqualTo(hash3);
 	}
+
 }

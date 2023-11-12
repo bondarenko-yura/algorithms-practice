@@ -36,4 +36,5 @@ class QuickUnionWeightingPathCompressionTest {
 		assertThat(quickFind.isConnected(6, 8)).isFalse();
 		assertThat(quickFind.isConnected(2, 3)).isFalse();
 	}
+
 }

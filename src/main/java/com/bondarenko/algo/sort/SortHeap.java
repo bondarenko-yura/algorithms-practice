@@ -46,4 +46,5 @@ public class SortHeap implements Sort {
 	private int getFirstChildIdx(int parentIdx) {
 		return (parentIdx + 1) * 2 - 1;
 	}
+
 }

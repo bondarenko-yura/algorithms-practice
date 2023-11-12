@@ -5,6 +5,7 @@ package com.bondarenko.algo.sort;
  * O(n) worst = N^2
  */
 public class SortBubble implements Sort {
+
 	@Override
 	public void sort(int[] arr) {
 		boolean sorted = false;
@@ -18,4 +19,5 @@ public class SortBubble implements Sort {
 			}
 		}
 	}
+
 }

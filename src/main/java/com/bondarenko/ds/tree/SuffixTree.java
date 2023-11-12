@@ -3,6 +3,13 @@ package com.bondarenko.ds.tree;
 // todo https://www.geeksforgeeks.org/data-structures/
 public class SuffixTree {
 
+	public static void main(String[] args) {
+		System.out.println(new SuffixTree().lengthOfLIS(new int[]{1, 3, 3, 4}, 1));
+		System.out.println(new SuffixTree().lengthOfLIS(new int[]{4, 2, 1, 4, 3, 4, 5, 8, 15}, 3));
+		System.out.println(new SuffixTree().lengthOfLIS(new int[]{7, 4, 5, 1, 8, 12, 4, 7}, 5));
+		System.out.println(new SuffixTree().lengthOfLIS(new int[]{1, 5}, 1));
+	}
+
 	public int lengthOfLIS(int[] nums, int k) {
 		var minVal = Integer.MAX_VALUE;
 		var maxVal = Integer.MIN_VALUE;
@@ -20,10 +27,11 @@ public class SuffixTree {
 	}
 
 	static final class SegmentTree {
-		SegmentTree left;
-		SegmentTree right;
+
 		final int lo;
 		final int hi;
+		SegmentTree left;
+		SegmentTree right;
 		int val;
 
 		SegmentTree(int lo, int hi) {
@@ -63,10 +71,4 @@ public class SuffixTree {
 
 	}
 
-	public static void main(String[] args) {
-		System.out.println(new SuffixTree().lengthOfLIS(new int[] {1,3,3,4}, 1));
-		System.out.println(new SuffixTree().lengthOfLIS(new int[] {4,2,1,4,3,4,5,8,15}, 3));
-		System.out.println(new SuffixTree().lengthOfLIS(new int[] {7,4,5,1,8,12,4,7}, 5));
-		System.out.println(new SuffixTree().lengthOfLIS(new int[] {1,5}, 1));
-	}
 }

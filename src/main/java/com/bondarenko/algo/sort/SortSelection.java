@@ -19,4 +19,5 @@ public class SortSelection implements Sort {
 			swap(arr, i, minIdx);
 		}
 	}
+
 }

@@ -7,6 +7,7 @@ package com.bondarenko.algo.sort;
  * stable
  */
 public class SortInsertion implements Sort {
+
 	@Override
 	public void sort(int[] arr) {
 		for (int i = 1; i < arr.length; i++) {
@@ -17,4 +18,5 @@ public class SortInsertion implements Sort {
 			}
 		}
 	}
+
 }

@@ -7,6 +7,7 @@ package com.bondarenko.ds.unionfind;
  * find - n
  */
 public class QuickUnion {
+
 	private final int[] data;
 
 	public QuickUnion(int size) {
@@ -35,4 +36,5 @@ public class QuickUnion {
 
 		return searchVal;
 	}
+
 }

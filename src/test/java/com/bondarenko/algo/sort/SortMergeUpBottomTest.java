@@ -10,18 +10,18 @@ class SortMergeUpBottomTest {
 
 	@Test
 	void merge() {
-		merge(sort, new int[]{ 2, 1 });
-		merge(sort, new int[]{ 3, 4, 1, 5 });
-		merge(sort, new int[]{ 3, 4, 1, 6, 9 });
+		merge(sort, new int[]{2, 1});
+		merge(sort, new int[]{3, 4, 1, 5});
+		merge(sort, new int[]{3, 4, 1, 6, 9});
 	}
 
 	@Test
 	void sort() {
-		sort(new int[]{ 1 });
-		sort(new int[]{ 2, 1 });
-		sort(new int[]{ 2, 1, 3 });
-		sort(new int[]{ 2, 1, 4, 3 });
-		sort(new int[]{ 3, 1, 2, 9, 5 });
+		sort(new int[]{1});
+		sort(new int[]{2, 1});
+		sort(new int[]{2, 1, 3});
+		sort(new int[]{2, 1, 4, 3});
+		sort(new int[]{3, 1, 2, 9, 5});
 	}
 
 	private void merge(SortMergeUpBottom sort, int[] arr) {
@@ -34,4 +34,5 @@ class SortMergeUpBottomTest {
 		sort.sort(arr);
 		assertThat(sort.isSorted(arr)).isTrue();
 	}
+
 }

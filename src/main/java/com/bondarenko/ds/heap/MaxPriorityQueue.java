@@ -107,4 +107,5 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 		System.arraycopy(data, 0, nextData, 0, cursor);
 		data = nextData;
 	}
+
 }

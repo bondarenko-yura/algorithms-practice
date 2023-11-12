@@ -26,6 +26,10 @@ class SortTest {
 
 	private Random random;
 
+	private static int problemSize(int targetSize) {
+		return RUN_FAST ? 1 : targetSize;
+	}
+
 	@BeforeEach
 	void setUp() {
 		this.random = new Random(55);
@@ -129,7 +133,4 @@ class SortTest {
 		}
 	}
 
-	private static int problemSize(int targetSize) {
-		return RUN_FAST ? 1 : targetSize;
-	}
 }

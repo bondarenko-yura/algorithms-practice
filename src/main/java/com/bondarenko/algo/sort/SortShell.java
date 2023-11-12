@@ -5,6 +5,7 @@ package com.bondarenko.algo.sort;
  * O(n) worst = N^(3/2)
  */
 public class SortShell implements Sort {
+
 	@Override
 	public void sort(int[] arr) {
 		int h = 1;
@@ -23,4 +24,5 @@ public class SortShell implements Sort {
 			h /= 3;
 		}
 	}
+
 }

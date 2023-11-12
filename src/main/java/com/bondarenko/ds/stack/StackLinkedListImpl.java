@@ -34,6 +34,7 @@ public class StackLinkedListImpl<E> implements Stack<E> {
 	}
 
 	private static final class Node<E> {
+
 		private final E element;
 		private final Node<E> next;
 
@@ -41,5 +42,7 @@ public class StackLinkedListImpl<E> implements Stack<E> {
 			this.element = element;
 			this.next = next;
 		}
+
 	}
+
 }

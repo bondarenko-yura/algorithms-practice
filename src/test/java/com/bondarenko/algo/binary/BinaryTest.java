@@ -39,4 +39,5 @@ public class BinaryTest {
 		return Integer.valueOf(
 				IntStream.range(0, len).mapToObj(i -> "1").collect(Collectors.joining()), 2);
 	}
+
 }

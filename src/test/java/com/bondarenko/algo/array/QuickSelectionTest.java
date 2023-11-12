@@ -40,4 +40,5 @@ class QuickSelectionTest {
 		int[] expected = Arrays.copyOfRange(inputCopy, inputCopy.length - valCount, inputCopy.length);
 		assertThat(result).isEqualTo(expected);
 	}
+
 }

@@ -1,6 +1,7 @@
 package com.bondarenko.ds.stack;
 
 public interface Stack<E> {
+
 	void push(E element);
 
 	E pop();
@@ -8,4 +9,5 @@ public interface Stack<E> {
 	boolean isEmpty();
 
 	int size();
+
 }

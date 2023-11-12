@@ -1,6 +1,7 @@
 package com.bondarenko.ds.queue;
 
 public interface Queue<E> {
+
 	void enqueue(E element);
 
 	E dequeue();
@@ -8,4 +9,5 @@ public interface Queue<E> {
 	boolean isEmpty();
 
 	int size();
+
 }

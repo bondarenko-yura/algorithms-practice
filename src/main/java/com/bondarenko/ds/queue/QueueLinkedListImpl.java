@@ -43,11 +43,14 @@ public class QueueLinkedListImpl<E> implements Queue<E> {
 	}
 
 	private static final class Node<E> {
+
 		private final E element;
 		private Node<E> next;
 
 		private Node(E element) {
 			this.element = element;
 		}
+
 	}
+
 }

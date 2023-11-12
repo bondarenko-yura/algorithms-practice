@@ -30,4 +30,5 @@ public class SortQuick3WayPartitioning implements Sort {
 		sort(arr, lo, lt);
 		sort(arr, gt, hi);
 	}
+
 }

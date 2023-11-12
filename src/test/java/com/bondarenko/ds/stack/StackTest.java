@@ -43,4 +43,5 @@ class StackTest {
 		assertThat(stack.isEmpty()).isTrue();
 		assertThat(stack.size()).isEqualTo(0);
 	}
+
 }

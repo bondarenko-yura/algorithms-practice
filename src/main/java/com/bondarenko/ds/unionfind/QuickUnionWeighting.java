@@ -12,6 +12,7 @@ package com.bondarenko.ds.unionfind;
  * max tree depth - lgN
  */
 public class QuickUnionWeighting {
+
 	private final int[] treeSize;
 	private final int[] tree;
 
@@ -49,4 +50,5 @@ public class QuickUnionWeighting {
 		}
 		return i;
 	}
+
 }

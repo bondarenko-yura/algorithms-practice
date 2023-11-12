@@ -49,4 +49,5 @@ public class StackArrayImpl<E> implements Stack<E> {
 	private E getByIdx(int idx) {
 		return (E) data[idx];
 	}
+
 }

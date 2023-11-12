@@ -66,4 +66,5 @@ class QueueTest {
 			assertThat(stack.size()).isEqualTo(load - i);
 		}
 	}
+
 }
