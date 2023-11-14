@@ -3,15 +3,16 @@ package com.bondarenko.leetcode.n1000.n900;
 /*
  URL: https://leetcode.com/problems/unique-length-3-palindromic-subsequences
  Time: N
- Space: N
+ Space: 1
  */
 public class UniqueLength3PalindromicSubsequences1930 {
 
 	private static final int NOT_FOUND = -1;
+	private static final int A_SIZE = 26;
 
 	public int countPalindromicSubsequence(String s) {
-		var mm = new int[26][2]; // letter -> min/max position
-		for (int i = 0; i < mm.length; i++)
+		var mm = new int[A_SIZE][2]; // letter -> min/max position
+		for (int i = 0; i < A_SIZE; i++)
 			mm[i][0] = mm[i][1] = NOT_FOUND;
 		for (int i = 0; i < s.length(); i++) {
 			var c = s.charAt(i) - 'a';
@@ -25,14 +26,16 @@ public class UniqueLength3PalindromicSubsequences1930 {
 		for (int[] m : mm) {
 			if (m[1] - m[0] < 2)
 				continue;
-			var present = new boolean[26];
-			for (int i = m[0] + 1; i < m[1]; i++) {
+			var present = new boolean[A_SIZE];
+			var cnt = 0;
+			for (int i = m[0] + 1; i < m[1] && cnt < A_SIZE; i++) {
 				var p = s.charAt(i) - 'a';
 				if (present[p])
 					continue;
 				present[p] = true;
-				ans++;
+				cnt++;
 			}
+			ans += cnt;
 		}
 		return ans;
 	}
