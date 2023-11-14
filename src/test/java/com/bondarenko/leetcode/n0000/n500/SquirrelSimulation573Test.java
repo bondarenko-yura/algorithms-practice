@@ -23,7 +23,7 @@ class SquirrelSimulation573Test {
 
 	@ParameterizedTest
 	@MethodSource("args")
-	void minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts, int ans) {
+	void test(int height, int width, int[] tree, int[] squirrel, int[][] nuts, int ans) {
 		assertThat(algo.minDistance(height, width, tree, squirrel, nuts)).isEqualTo(ans);
 	}
 

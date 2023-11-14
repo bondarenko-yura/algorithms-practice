@@ -1,4 +1,4 @@
-package com.bondarenko.leetcode.n0000.n800;
+package com.bondarenko.leetcode.n1000.n900;
 
 import java.util.stream.Stream;
 
@@ -9,21 +9,22 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-class BusRoutes815Test {
+class UniqueLength3PalindromicSubsequences1930Test {
 
-	private final BusRoutes815 algo = new BusRoutes815();
+	private final UniqueLength3PalindromicSubsequences1930 algo = new UniqueLength3PalindromicSubsequences1930();
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(new int[][]{{1,2,7},{3,6,7}}, 1, 6, 2),
-				of(new int[][]{{7,12},{4,5,15},{6},{15,19},{9,12,13}}, 15, 12, -1)
+				of("aabca", 3),
+				of("adc", 0),
+				of("bbcbaba", 4)
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args")
-	void test(int[][] routes, int source, int target, int ans) {
-		assertThat(algo.numBusesToDestination(routes, source, target)).isEqualTo(ans);
+	void test(String s, int ans) {
+		assertThat(algo.countPalindromicSubsequence(s)).isEqualTo(ans);
 	}
 
 }
