@@ -12,15 +12,13 @@ public class MaximumElementAfterDecreasingAndRearranging1846 {
 		var seq = new int[n];
 		for (int v : arr)
 			seq[Math.min(v - 1, n - 1)]++;
+		var ans = n;
 		for (int i = n - 1; i > 0; i--) {
 			seq[i-1] += Math.max(0, seq[i] - 1);
-			seq[i] = Math.min(1, seq[i]);
+			if (seq[i] == 0)
+				ans--;
 		}
-		var cnt = 0;
-		for (int v : seq)
-			if (v > 0)
-				cnt++;
-		return cnt;
+		return ans;
 	}
 
 }
