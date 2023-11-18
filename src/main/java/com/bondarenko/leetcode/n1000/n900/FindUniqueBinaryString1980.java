@@ -9,6 +9,7 @@ package com.bondarenko.leetcode.n1000.n900;
  */
 public class FindUniqueBinaryString1980 {
 
+	// trie, dfs
 	public String findDifferentBinaryString(String[] nums) {
 		var root = new Node();
 		for (String nm : nums) {

@@ -16,6 +16,7 @@ import java.util.Queue;
  */
 public class BusRoutes815 {
 
+	// bfs
 	public int numBusesToDestination(int[][] routes, int source, int target) {
 		if (source == target)
 			return 0;

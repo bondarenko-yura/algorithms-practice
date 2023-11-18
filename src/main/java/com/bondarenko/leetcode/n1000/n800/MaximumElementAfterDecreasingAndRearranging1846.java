@@ -7,6 +7,7 @@ package com.bondarenko.leetcode.n1000.n800;
  */
 public class MaximumElementAfterDecreasingAndRearranging1846 {
 
+	// count, greedy
 	public int maximumElementAfterDecrementingAndRearranging(int[] arr) {
 		var n = arr.length;
 		var seq = new int[n];

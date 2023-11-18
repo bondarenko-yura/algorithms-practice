@@ -10,6 +10,7 @@ public class UniqueLength3PalindromicSubsequences1930 {
 	private static final int NOT_FOUND = -1;
 	private static final int A_SIZE = 26;
 
+	// prefix sum
 	public int countPalindromicSubsequence(String s) {
 		var mm = new int[A_SIZE][2]; // letter -> min/max position
 		for (int i = 0; i < A_SIZE; i++)

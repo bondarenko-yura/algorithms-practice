@@ -7,6 +7,7 @@ package com.bondarenko.leetcode.n0000.n500;
  */
 public class SquirrelSimulation573 {
 
+	// math
 	private static int distance(int[] a, int[] b) {
 		return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 	}
