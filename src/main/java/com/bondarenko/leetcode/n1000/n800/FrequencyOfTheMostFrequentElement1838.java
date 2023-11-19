@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class FrequencyOfTheMostFrequentElement1838 {
 
-	// sliding window
+	// sort, sliding window
 	public int maxFrequency(int[] nums, int k) {
 		Arrays.sort(nums);
 		var ans = 1;
