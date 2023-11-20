@@ -1,9 +1,11 @@
 package com.bondarenko.leetcode.n2000.n300;
 
-/* ,'/;kopl;/;kp[u; liplpl
+/*
  URL: https://leetcode.com/problems/minimum-amount-of-time-to-collect-garbage
- Time: x
- Space: x
+ N - len(garbage)
+ M - len(garbage[x])
+ Time: NM
+ Space: 1
  */
 public class MinimumAmountOfTimeToCollectGarbage2391 {
 
