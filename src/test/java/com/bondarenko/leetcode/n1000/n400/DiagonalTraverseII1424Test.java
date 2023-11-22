@@ -7,7 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
@@ -17,17 +16,17 @@ class DiagonalTraverseII1424Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(asList(asList(1, 2, 3), asList(4, 5, 6), asList(7, 8, 9)),
+				of(List.of(List.of(1, 2, 3), List.of(4, 5, 6), List.of(7, 8, 9)),
 						new int[]{1, 4, 2, 7, 5, 3, 8, 6, 9}),
-				of(asList(asList(1, 2, 3, 4, 5), asList(6, 7), List.of(8), asList(9, 10, 11), asList(12, 13, 14, 15, 16)),
+				of(List.of(List.of(1, 2, 3, 4, 5), List.of(6, 7), List.of(8), List.of(9, 10, 11), List.of(12, 13, 14, 15, 16)),
 						new int[]{1, 6, 2, 8, 7, 3, 9, 4, 12, 10, 5, 13, 11, 14, 15, 16})
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args")
-	void test(List<List<Integer>> arr, int[] ans) {
-		assertThat(algo.findDiagonalOrder(arr)).isEqualTo(ans);
+	void test(List<List<Integer>> nums, int[] ans) {
+		assertThat(algo.findDiagonalOrder(nums)).isEqualTo(ans);
 	}
 
 }
