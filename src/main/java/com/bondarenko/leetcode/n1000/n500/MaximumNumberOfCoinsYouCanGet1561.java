@@ -13,9 +13,7 @@ public class MaximumNumberOfCoinsYouCanGet1561 {
 	public int maxCoins(int[] piles) {
 		Arrays.sort(piles);
 		var ans = 0;
-		var n = piles.length;
-		var lim = n - n / 3 * 2 - 1;
-		for (int i = n - 2; i >= lim; i -= 2)
+		for (int i = piles.length / 3; i < piles.length; i += 2)
 			ans += piles[i];
 		return ans;
 	}
