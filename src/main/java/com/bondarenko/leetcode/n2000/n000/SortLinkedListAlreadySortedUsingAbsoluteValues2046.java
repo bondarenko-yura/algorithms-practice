@@ -10,29 +10,26 @@ import com.bondarenko.leetcode.ds.ListNode;
 public class SortLinkedListAlreadySortedUsingAbsoluteValues2046 {
 
 	public ListNode sortLinkedList(ListNode head) {
-		var neg = new ListNode(Integer.MIN_VALUE);
-		var negTail = neg;
-		var pos = new ListNode();
-		var posCur = pos;
+		var negHead = new ListNode();
+		var negTail = negHead;
+		var posHead = new ListNode();
+		var posCur = posHead;
 		while (head != null) {
 			var node = head;
-			head = head.next;
+			head = node.next;
+			node.next = null;
 			if (node.val >= 0) {
 				posCur.next = node;
-				posCur = posCur.next;
-				posCur.next = null;
+				posCur = node;
 			} else {
-				node.next = neg.next;
-				neg.next = node;
-				if (negTail.val == Integer.MIN_VALUE)
+				node.next = negHead.next;
+				negHead.next = node;
+				if (negTail == negHead)
 					negTail = node;
 			}
 		}
-		if (negTail.val == Integer.MIN_VALUE) {
-			return pos.next;
-		}
-		negTail.next = pos.next;
-		return neg.next;
+		negTail.next = posHead.next;
+		return negHead.next;
 	}
 
 }
