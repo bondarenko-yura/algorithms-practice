@@ -1,4 +1,4 @@
-package com.bondarenko.leetcode.n0000.n100;
+package com.bondarenko.leetcode.n0000.n000;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
