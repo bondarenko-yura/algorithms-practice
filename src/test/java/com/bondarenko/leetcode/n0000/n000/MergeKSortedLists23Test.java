@@ -3,7 +3,6 @@ package com.bondarenko.leetcode.n0000.n000;
 import java.util.stream.Stream;
 
 import com.bondarenko.leetcode.ds.ListNode;
-import com.bondarenko.leetcode.n0000.n000.MergeKSortedLists23;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
