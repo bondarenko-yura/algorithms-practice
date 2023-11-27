@@ -9,6 +9,7 @@ import com.bondarenko.leetcode.ds.ListNode;
  */
 public class SortLinkedListAlreadySortedUsingAbsoluteValues2046 {
 
+	// iteration
 	public ListNode sortLinkedList(ListNode head) {
 		var negHead = new ListNode();
 		var negTail = negHead;
