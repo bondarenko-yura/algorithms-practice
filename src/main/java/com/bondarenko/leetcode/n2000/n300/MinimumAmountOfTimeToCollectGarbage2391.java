@@ -6,7 +6,7 @@ package com.bondarenko.leetcode.n2000.n300;
  M - len(garbage[x])
  Time: NM
  Space: 1
- */
+*/
 public class MinimumAmountOfTimeToCollectGarbage2391 {
 
 	// array
