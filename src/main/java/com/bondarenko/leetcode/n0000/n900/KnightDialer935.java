@@ -6,7 +6,7 @@ import java.util.Arrays;
  URL: https://leetcode.com/problems/knight-dialer
  Time: N
  Space: 1
- */
+*/
 public class KnightDialer935 {
 
 	private static final int[][] MOVES =
