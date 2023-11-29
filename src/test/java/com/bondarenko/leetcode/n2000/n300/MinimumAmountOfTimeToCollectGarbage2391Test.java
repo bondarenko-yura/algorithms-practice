@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 class MinimumAmountOfTimeToCollectGarbage2391Test {
-	private final MinimumAmountOfTimeToCollectGarbage2391 algo = new MinimumAmountOfTimeToCollectGarbage2391();
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
@@ -22,6 +21,7 @@ class MinimumAmountOfTimeToCollectGarbage2391Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(String[] garbage, int[] travel, int ans) {
+		var algo = new MinimumAmountOfTimeToCollectGarbage2391();
 		assertThat(algo.garbageCollection(garbage, travel)).isEqualTo(ans);
 	}
 }

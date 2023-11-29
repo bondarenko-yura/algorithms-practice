@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class SquirrelSimulation573Test {
 
-	private final SquirrelSimulation573 algo = new SquirrelSimulation573();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(5, 7, new int[]{2, 2}, new int[]{4, 4}, new int[][]{{3, 0}, {2, 5}}, 12),
@@ -24,6 +22,7 @@ class SquirrelSimulation573Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int height, int width, int[] tree, int[] squirrel, int[][] nuts, int ans) {
+		var algo = new SquirrelSimulation573();
 		assertThat(algo.minDistance(height, width, tree, squirrel, nuts)).isEqualTo(ans);
 	}
 

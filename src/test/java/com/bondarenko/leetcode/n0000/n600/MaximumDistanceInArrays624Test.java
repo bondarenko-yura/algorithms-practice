@@ -12,8 +12,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class MaximumDistanceInArrays624Test {
 
-	private final MaximumDistanceInArrays624 algo = new MaximumDistanceInArrays624();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(List.of(List.of(1, 2, 3), List.of(4, 5), List.of(1, 2, 3)), 4),
@@ -24,6 +22,7 @@ class MaximumDistanceInArrays624Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(List<List<Integer>> arr, int ans) {
+		var algo = new MaximumDistanceInArrays624();
 		assertThat(algo.maxDistance(arr)).isEqualTo(ans);
 	}
 

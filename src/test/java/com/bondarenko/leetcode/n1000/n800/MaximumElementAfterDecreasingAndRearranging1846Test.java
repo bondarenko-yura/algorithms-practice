@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class MaximumElementAfterDecreasingAndRearranging1846Test {
 
-	private final MaximumElementAfterDecreasingAndRearranging1846 algo = new MaximumElementAfterDecreasingAndRearranging1846();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[]{2, 2, 1, 2, 1}, 2),
@@ -24,6 +22,7 @@ class MaximumElementAfterDecreasingAndRearranging1846Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[] arr, int ans) {
+		var algo = new MaximumElementAfterDecreasingAndRearranging1846();
 		assertThat(algo.maximumElementAfterDecrementingAndRearranging(arr)).isEqualTo(ans);
 	}
 

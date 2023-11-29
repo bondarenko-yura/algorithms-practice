@@ -13,8 +13,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class MergeKSortedLists23Test {
 
-	private final MergeKSortedLists23 algo = new MergeKSortedLists23();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new ListNode[]{ListNode.of(1, 4, 5), ListNode.of(1, 3, 4), ListNode.of(2, 6)}, ListNode.of(1, 1, 2, 3, 4, 4, 5, 6)),
@@ -26,6 +24,7 @@ class MergeKSortedLists23Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(ListNode[] lists, ListNode ans) {
+		var algo = new MergeKSortedLists23();
 		assertThat(algo.mergeKLists(lists)).isEqualTo(ans);
 	}
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class FindUniqueBinaryString1980Test {
 
-	private final FindUniqueBinaryString1980 algo = new FindUniqueBinaryString1980();
+
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
@@ -28,6 +28,7 @@ class FindUniqueBinaryString1980Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(String[] nums, int size) {
+		var algo = new FindUniqueBinaryString1980();
 		var ans = algo.findDifferentBinaryString(nums);
 		assertThat(ans).hasSize(size);
 		assertThat(ans).matches(s -> Pattern.matches("[01]+", s));

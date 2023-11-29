@@ -13,8 +13,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class ReverseLinkedList206Test {
 
-	private final ReverseLinkedList206 algo = new ReverseLinkedList206();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(ListNode.of(1, 2, 3, 4, 5), ListNode.of(5, 4, 3, 2, 1)),
@@ -27,6 +25,7 @@ class ReverseLinkedList206Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(ListNode list, ListNode ans) {
+		var algo = new ReverseLinkedList206();
 		assertThat(algo.reverseList(list)).isEqualTo(ans);
 	}
 

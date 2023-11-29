@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class CountNicePairsInAnArray1814Test {
 
-	private final CountNicePairsInAnArray1814 algo = new CountNicePairsInAnArray1814();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[]{42, 11, 1, 97}, 2),
@@ -23,6 +21,7 @@ class CountNicePairsInAnArray1814Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[] arr, int ans) {
+		var algo = new CountNicePairsInAnArray1814();
 		assertThat(algo.countNicePairs(arr)).isEqualTo(ans);
 	}
 

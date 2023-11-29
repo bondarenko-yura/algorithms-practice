@@ -13,8 +13,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class SortLinkedListAlreadySortedUsingAbsoluteValues2046Test {
 
-	private final SortLinkedListAlreadySortedUsingAbsoluteValues2046 algo = new SortLinkedListAlreadySortedUsingAbsoluteValues2046();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(ListNode.of(0, 2, -5, 5, 10, -10), ListNode.of(-10, -5, 0, 2, 5, 10)),
@@ -26,6 +24,7 @@ class SortLinkedListAlreadySortedUsingAbsoluteValues2046Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(ListNode head, ListNode ans) {
+		var algo = new SortLinkedListAlreadySortedUsingAbsoluteValues2046();
 		assertThat(algo.sortLinkedList(head)).isEqualTo(ans);
 	}
 

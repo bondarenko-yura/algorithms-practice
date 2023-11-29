@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class BusRoutes815Test {
 
-	private final BusRoutes815 algo = new BusRoutes815();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[][]{{1,2,7},{3,6,7}}, 1, 6, 2),
@@ -23,6 +21,7 @@ class BusRoutes815Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[][] routes, int source, int target, int ans) {
+		var algo = new BusRoutes815();
 		assertThat(algo.numBusesToDestination(routes, source, target)).isEqualTo(ans);
 	}
 

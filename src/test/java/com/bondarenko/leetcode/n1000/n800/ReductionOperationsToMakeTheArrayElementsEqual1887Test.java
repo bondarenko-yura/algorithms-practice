@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 class ReductionOperationsToMakeTheArrayElementsEqual1887Test {
-	private final ReductionOperationsToMakeTheArrayElementsEqual1887 algo = new ReductionOperationsToMakeTheArrayElementsEqual1887();
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
@@ -23,6 +22,7 @@ class ReductionOperationsToMakeTheArrayElementsEqual1887Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[] arr, int ans) {
+		var algo = new ReductionOperationsToMakeTheArrayElementsEqual1887();
 		assertThat(algo.reductionOperations(arr)).isEqualTo(ans);
 	}
 }

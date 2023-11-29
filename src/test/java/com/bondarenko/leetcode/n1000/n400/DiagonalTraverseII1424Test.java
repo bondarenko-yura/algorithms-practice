@@ -12,8 +12,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class DiagonalTraverseII1424Test {
 
-	private final DiagonalTraverseII1424 algo = new DiagonalTraverseII1424();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(List.of(List.of(1, 2, 3), List.of(4, 5, 6), List.of(7, 8, 9)),
@@ -26,6 +24,7 @@ class DiagonalTraverseII1424Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(List<List<Integer>> nums, int[] ans) {
+		var algo = new DiagonalTraverseII1424();
 		assertThat(algo.findDiagonalOrder(nums)).isEqualTo(ans);
 	}
 

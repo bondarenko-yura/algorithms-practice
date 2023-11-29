@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class KnightDialer935Test {
 
-	private final KnightDialer935 algo = new KnightDialer935();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(1, 10),
@@ -24,6 +22,7 @@ class KnightDialer935Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int n, int ans) {
+		var algo = new KnightDialer935();
 		assertThat(algo.knightDialer(n)).isEqualTo(ans);
 	}
 

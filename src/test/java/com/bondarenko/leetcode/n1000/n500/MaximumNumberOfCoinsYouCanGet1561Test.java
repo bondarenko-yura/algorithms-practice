@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class MaximumNumberOfCoinsYouCanGet1561Test {
 
-	private final MaximumNumberOfCoinsYouCanGet1561 algo = new MaximumNumberOfCoinsYouCanGet1561();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[]{2, 4, 1, 2, 7, 8}, 9),
@@ -24,6 +22,7 @@ class MaximumNumberOfCoinsYouCanGet1561Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[] arr, int ans) {
+		var algo = new MaximumNumberOfCoinsYouCanGet1561();
 		assertThat(algo.maxCoins(arr)).isEqualTo(ans);
 	}
 

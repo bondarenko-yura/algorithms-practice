@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class LargestSubmatrixWithRearrangements1727Test {
 
-	private final LargestSubmatrixWithRearrangements1727 algo = new LargestSubmatrixWithRearrangements1727();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[][]{{0, 0, 1}, {1, 1, 1}, {1, 0, 1}}, 4),
@@ -24,6 +22,7 @@ class LargestSubmatrixWithRearrangements1727Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[][] arr, int ans) {
+		var algo = new LargestSubmatrixWithRearrangements1727();
 		assertThat(algo.largestSubmatrix(arr)).isEqualTo(ans);
 	}
 

@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class NumberOfWaysToDivideALongCorridor2147Test {
 
-	private final NumberOfWaysToDivideALongCorridor2147 algo = new NumberOfWaysToDivideALongCorridor2147();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of("SSPPSPS", 3),
@@ -24,6 +22,7 @@ class NumberOfWaysToDivideALongCorridor2147Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(String corridor, int ans) {
+		var algo = new NumberOfWaysToDivideALongCorridor2147();
 		assertThat(algo.numberOfWays(corridor)).isEqualTo(ans);
 	}
 

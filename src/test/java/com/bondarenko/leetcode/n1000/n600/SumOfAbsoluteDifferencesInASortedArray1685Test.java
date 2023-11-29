@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class SumOfAbsoluteDifferencesInASortedArray1685Test {
 
-	private final SumOfAbsoluteDifferencesInASortedArray1685 algo = new SumOfAbsoluteDifferencesInASortedArray1685();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[]{2, 3, 5}, new int[]{4, 3, 5}),
@@ -23,6 +21,7 @@ class SumOfAbsoluteDifferencesInASortedArray1685Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[] arr, int[] ans) {
+		var algo = new SumOfAbsoluteDifferencesInASortedArray1685();
 		assertThat(algo.getSumAbsoluteDifferences(arr)).isEqualTo(ans);
 	}
 

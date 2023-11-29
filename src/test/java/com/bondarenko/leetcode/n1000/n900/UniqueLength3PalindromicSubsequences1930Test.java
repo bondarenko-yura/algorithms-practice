@@ -11,7 +11,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class UniqueLength3PalindromicSubsequences1930Test {
 
-	private final UniqueLength3PalindromicSubsequences1930 algo = new UniqueLength3PalindromicSubsequences1930();
+
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
@@ -24,6 +24,7 @@ class UniqueLength3PalindromicSubsequences1930Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(String s, int ans) {
+		var algo = new UniqueLength3PalindromicSubsequences1930();
 		assertThat(algo.countPalindromicSubsequence(s)).isEqualTo(ans);
 	}
 

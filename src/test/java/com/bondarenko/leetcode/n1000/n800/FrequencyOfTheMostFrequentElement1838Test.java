@@ -11,8 +11,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class FrequencyOfTheMostFrequentElement1838Test {
 
-	private final FrequencyOfTheMostFrequentElement1838 algo = new FrequencyOfTheMostFrequentElement1838();
-
 	private static Stream<Arguments> args() {
 		return Stream.of(
 				of(new int[]{1,2,4}, 5, 3),
@@ -24,6 +22,7 @@ class FrequencyOfTheMostFrequentElement1838Test {
 	@ParameterizedTest
 	@MethodSource("args")
 	void test(int[] arr, int k, int ans) {
+		var algo = new FrequencyOfTheMostFrequentElement1838();
 		assertThat(algo.maxFrequency(arr, k)).isEqualTo(ans);
 	}
 }
