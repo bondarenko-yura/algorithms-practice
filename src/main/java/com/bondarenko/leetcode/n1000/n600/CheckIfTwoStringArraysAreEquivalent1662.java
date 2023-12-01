@@ -2,7 +2,7 @@ package com.bondarenko.leetcode.n1000.n600;
 
 /*
  URL: https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent
- Time: N
+ Time: N (sum of w1 and w2 lengths)
  Space: 1
  */
 public class CheckIfTwoStringArraysAreEquivalent1662 {
