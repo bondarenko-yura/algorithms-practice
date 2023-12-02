@@ -7,7 +7,7 @@ package com.bondarenko.leetcode.n0000.n000;
  */
 public class LongestPalindromicSubstring5 {
 
-	// bruteforce
+	// bruteforce (expand from center)
 	public String longestPalindrome(String s) {
 		var rlt = 0;
 		var rrt = 0;
@@ -30,4 +30,45 @@ public class LongestPalindromicSubstring5 {
 		return s.substring(rlt, rrt + 1);
 	}
 
+	// Time N - Manacher's Algorithm
+	public String longestPalindromeManachersAlgorithm(String s) {
+		var sPrime = new StringBuilder("#");
+		for (char c : s.toCharArray())
+			sPrime.append(c).append("#");
+
+		var n = sPrime.length();
+		var palindromeRadii = new int[n];
+		var center = 0;
+		var radius = 0;
+
+		for (int i = 0; i < n; i++) {
+			var mirror = 2 * center - i;
+
+			if (i < radius)
+				palindromeRadii[i] = Math.min(radius - i, palindromeRadii[mirror]);
+
+			while (i + 1 + palindromeRadii[i] < n
+					&& i - 1 - palindromeRadii[i] >= 0
+					&& sPrime.charAt(i + 1 + palindromeRadii[i]) == sPrime.charAt(i - 1 - palindromeRadii[i])) {
+				palindromeRadii[i]++;
+			}
+
+			if (i + palindromeRadii[i] > radius) {
+				center = i;
+				radius = i + palindromeRadii[i];
+			}
+		}
+
+		var maxLength = 0;
+		var centerIndex = 0;
+		for (int i = 0; i < n; i++) {
+			if (palindromeRadii[i] > maxLength) {
+				maxLength = palindromeRadii[i];
+				centerIndex = i;
+			}
+		}
+
+		var startIndex = (centerIndex - maxLength) / 2;
+		return s.substring(startIndex, startIndex + maxLength);
+	}
 }

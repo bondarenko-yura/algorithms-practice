@@ -26,4 +26,10 @@ class LongestPalindromicSubstring5Test {
 		assertThat(algo.longestPalindrome(s)).isEqualTo(ans);
 	}
 
+	@ParameterizedTest
+	@MethodSource("args")
+	void testManachersAlgorithm(String s, String ans) {
+		var algo = new LongestPalindromicSubstring5();
+		assertThat(algo.longestPalindromeManachersAlgorithm(s)).isEqualTo(ans);
+	}
 }
