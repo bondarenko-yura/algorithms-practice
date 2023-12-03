@@ -10,12 +10,10 @@ public class MinimumTimeVisitingAllPoints1266 {
 	// iteration
 	public int minTimeToVisitAllPoints(int[][] points) {
 		var ans = 0;
-		for (int i = 1; i < points.length; i++) {
-			var dx = Math.abs(points[i - 1][0] - points[i][0]);
-			var dy = Math.abs(points[i - 1][1] - points[i][1]);
-			var dif = Math.abs(dx - dy);
-			ans += dif + Math.max(dx, dy) - dif;
-		}
+		for (int i = 1; i < points.length; i++)
+			ans += Math.max(
+					Math.abs(points[i - 1][0] - points[i][0]),
+					Math.abs(points[i - 1][1] - points[i][1]));
 		return ans;
 	}
 
