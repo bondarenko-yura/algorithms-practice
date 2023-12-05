@@ -7,6 +7,7 @@ package com.bondarenko.leetcode.n1000.n600;
  */
 public class CountOfMatchesInTournament1688 {
 
+	// logic
 	public int numberOfMatches(int n) {
 		// There are n teams, and 1 winner. Thus, n - 1 teams will be eliminated.
 		// Each match is played between two teams. One team wins, one team loses. Thus, each match
