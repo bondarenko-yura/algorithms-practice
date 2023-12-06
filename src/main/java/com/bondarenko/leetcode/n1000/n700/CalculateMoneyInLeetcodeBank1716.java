@@ -2,7 +2,7 @@ package com.bondarenko.leetcode.n1000.n700;
 
 /*
  URL: https://leetcode.com/problems/calculate-money-in-leetcode-bank
- Time: N
+ Time: 1
  Space: 1
  */
 public class CalculateMoneyInLeetcodeBank1716 {
@@ -14,6 +14,7 @@ public class CalculateMoneyInLeetcodeBank1716 {
 		return (elemCount * (2 * first + (elemCount - 1)) * dif) / 2;
 	}
 
+	// arithmetic progression
 	public int totalMoney(int n) {
 		var ans = 0;
 		var totalWeeksCount = (n + DAYS_PER_WEEK - 1) / DAYS_PER_WEEK;
