@@ -24,13 +24,29 @@ public class TreeNode {
 		this.right = right;
 	}
 
+	private static void toString(TreeNode root, StringBuilder sb) {
+		if (root == null)
+			return;
+		sb.append(root.val);
+		if (root.left == null && root.right == null)
+			return;
+		sb.append('(');
+		toString(root.left, sb);
+		sb.append(')');
+		if (root.right != null) {
+			sb.append('(');
+			toString(root.right, sb);
+			sb.append(')');
+		}
+	}
+
 	public static TreeNode of(Integer... vals) {
 		if (vals.length == 0 || vals[0] == null)
 			return null;
 		var root = new TreeNode(vals[0]);
 		var parents = List.of(root);
 		var children = new ArrayList<TreeNode>();
-		for (Integer v : vals) {
+		for (int i = 1; i < vals.length; i++) {
 			while (parents.get(children.size() / 2) == null) {
 				if ((children.size() + 1) / 2 == parents.size()) {
 					if (hasNodes(children)) {
@@ -43,19 +59,40 @@ public class TreeNode {
 				}
 				children.add(null);
 			}
-			var child = v == null ? null : new TreeNode(v);
+			var child = vals[i] == null ? null : new TreeNode(vals[i]);
 			var parent = parents.get(children.size() / 2);
 			if (children.size() % 2 == 0)
 				parent.left = child;
 			else
 				parent.right = child;
 			children.add(child);
-			if (parents.size() * 2 == children.size() && hasNodes(children)) {
+			if (parents.size() * 2 == children.size()) {
 				parents = children;
 				children = new ArrayList<>();
 			}
 		}
 		return root;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof TreeNode that)) return false;
+		return val == that.val
+				&& Objects.equals(left, that.left)
+				&& Objects.equals(right, that.right);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(val, left, right);
+	}
+
+	@Override
+	public String toString() {
+		var sb = new StringBuilder();
+		toString(this, sb);
+		return sb.toString();
 	}
 
 	private static boolean hasNodes(Collection<TreeNode> row) {

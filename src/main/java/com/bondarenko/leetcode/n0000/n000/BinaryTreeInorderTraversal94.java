@@ -13,7 +13,7 @@ import com.bondarenko.leetcode.ds.TreeNode;
  */
 public class BinaryTreeInorderTraversal94 {
 
-	private static void inorder(TreeNode root, ArrayList<Integer> ans) {
+	private static void inorder(TreeNode root, List<Integer> ans) {
 		if (root == null)
 			return;
 		inorder(root.left, ans);
