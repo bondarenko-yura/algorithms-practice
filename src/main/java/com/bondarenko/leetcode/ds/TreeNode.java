@@ -1,7 +1,9 @@
 package com.bondarenko.leetcode.ds;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public class TreeNode {
 
@@ -26,33 +28,38 @@ public class TreeNode {
 		if (vals.length == 0 || vals[0] == null)
 			return null;
 		var root = new TreeNode(vals[0]);
-		var cur = new ArrayList<TreeNode>();
-		var pre = List.of(root);
-		var lvlSize = 2;
-		var li = 0;
-		var vi = 1;
-		while (vi < vals.length) {
-			if (vals[vi] == null) {
-				cur.add(null);
-			} else {
-				var node = new TreeNode(vals[vi]);
-				var idx = cur.size() / 2;
-				if (cur.size() % 2 == 0)
-					pre.get(idx).left = node;
-				else
-					pre.get(idx).right = node;
-				cur.add(node);
+		var parents = List.of(root);
+		var children = new ArrayList<TreeNode>();
+		for (Integer v : vals) {
+			while (parents.get(children.size() / 2) == null) {
+				if ((children.size() + 1) / 2 == parents.size()) {
+					if (hasNodes(children)) {
+						parents = children;
+						children = new ArrayList<>();
+						continue;
+					} else {
+						return root;
+					}
+				}
+				children.add(null);
 			}
-			li++;
-			vi++;
-			if (li == lvlSize) {
-				li = 0;
-				lvlSize *= 2;
-				pre = cur;
-				cur = new ArrayList<>();
+			var child = v == null ? null : new TreeNode(v);
+			var parent = parents.get(children.size() / 2);
+			if (children.size() % 2 == 0)
+				parent.left = child;
+			else
+				parent.right = child;
+			children.add(child);
+			if (parents.size() * 2 == children.size() && hasNodes(children)) {
+				parents = children;
+				children = new ArrayList<>();
 			}
 		}
 		return root;
+	}
+
+	private static boolean hasNodes(Collection<TreeNode> row) {
+		return row.stream().anyMatch(Objects::nonNull);
 	}
 
 }
