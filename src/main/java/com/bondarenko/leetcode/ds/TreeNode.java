@@ -1,7 +1,6 @@
 package com.bondarenko.leetcode.ds;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,7 +48,7 @@ public class TreeNode {
 		for (int i = 1; i < vals.length; i++) {
 			while (parents.get(children.size() / 2) == null) {
 				if ((children.size() + 1) / 2 == parents.size()) {
-					if (hasNodes(children)) {
+					if (children.stream().anyMatch(Objects::nonNull)) {
 						parents = children;
 						children = new ArrayList<>();
 						continue;
@@ -93,10 +92,6 @@ public class TreeNode {
 		var sb = new StringBuilder();
 		toString(this, sb);
 		return sb.toString();
-	}
-
-	private static boolean hasNodes(Collection<TreeNode> row) {
-		return row.stream().anyMatch(Objects::nonNull);
 	}
 
 }
