@@ -1,6 +1,8 @@
 package com.bondarenko.leetcode.ds;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public final class Array {
 
@@ -21,6 +23,10 @@ public final class Array {
 		return ans;
 	}
 
+	public static List<Integer> parse1DList(String s) {
+		return Arrays.stream(parse1D(s)).boxed().toList();
+	}
+
 	public static int[][] parse2D(String a) {
 		if (a == null)
 			return null;
@@ -36,6 +42,12 @@ public final class Array {
 				res.add(parse1D(sub.substring(left, right + 1)));
 		}
 		return res.toArray(int[][]::new);
+	}
+
+	public static List<List<Integer>> parse2DList(String a) {
+		return Arrays.stream(parse2D(a))
+				.map(v -> Arrays.stream(v).boxed().toList())
+				.toList();
 	}
 
 	private static int startIDx(String a) {
