@@ -24,18 +24,17 @@ public class BestMeetingPoint296 {
 		prefSum(row);
 		prefSum(col);
 		var ans = rowStartDist;
-		for (int r = 0; r < row.length; r++) {
+		for (int upCnt : row) {
 			var cur = rowStartDist;
 			ans = Math.min(ans, cur);
 			for (int c = 1; c < col.length; c++) {
-				var right = col[col.length - 1] - col[c - 1];
-				var left = col[c - 1];
-				cur = cur - right + left;
+				var rightCnt = col[col.length - 1] - col[c - 1];
+				var leftCnt = col[c - 1];
+				cur = cur - rightCnt + leftCnt;
 				ans = Math.min(ans, cur);
 			}
-			var down = row[row.length - 1] - row[r];
-			var up = row[r];
-			rowStartDist = rowStartDist - down + up;
+			var downCnt = row[row.length - 1] - upCnt;
+			rowStartDist = rowStartDist - downCnt + upCnt;
 		}
 		return ans;
 	}
