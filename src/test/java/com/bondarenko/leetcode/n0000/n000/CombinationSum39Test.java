@@ -16,9 +16,9 @@ class CombinationSum39Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(new int[]{2, 3, 6, 7}, 7, Array.parse2DList("[[2,2,3],[7]]")),
-				of(new int[]{2, 3, 5}, 8, Array.parse2DList("[[2,2,2,2],[2,3,3],[3,5]]")),
-				of(new int[]{2}, 1, Array.parse2DList("[]"))
+				of(new int[]{2, 3, 6, 7}, 7, Array.p2DList("[[2,2,3],[7]]")),
+				of(new int[]{2, 3, 5}, 8, Array.p2DList("[[2,2,2,2],[2,3,3],[3,5]]")),
+				of(new int[]{2}, 1, Array.p2DList("[]"))
 		);
 	}
 

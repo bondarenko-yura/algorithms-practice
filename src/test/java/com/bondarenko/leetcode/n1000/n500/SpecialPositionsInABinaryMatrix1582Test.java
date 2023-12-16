@@ -15,10 +15,10 @@ class SpecialPositionsInABinaryMatrix1582Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(Array.parse2D("[[0,0,1,0],[0,0,0,0],[0,0,0,0],[0,1,0,0]]"), 2),
-				of(Array.parse2D("[[1,0,0],[0,0,1],[1,0,0]]"), 1),
-				of(Array.parse2D("[[1,1],[1,1]]"), 0),
-				of(Array.parse2D("[[1,0,0],[0,1,0],[0,0,1]]"), 3)
+				of(Array.p2D("[[0,0,1,0],[0,0,0,0],[0,0,0,0],[0,1,0,0]]"), 2),
+				of(Array.p2D("[[1,0,0],[0,0,1],[1,0,0]]"), 1),
+				of(Array.p2D("[[1,1],[1,1]]"), 0),
+				of(Array.p2D("[[1,0,0],[0,1,0],[0,0,1]]"), 3)
 		);
 	}
 

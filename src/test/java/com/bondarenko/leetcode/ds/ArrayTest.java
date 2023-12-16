@@ -35,13 +35,13 @@ class ArrayTest {
 	@ParameterizedTest
 	@MethodSource("args1D")
 	void test1D(String in, int[] ans) {
-		assertThat(Array.parse1D(in)).isEqualTo(ans);
+		assertThat(Array.p1D(in)).isEqualTo(ans);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args2D")
 	void test2D(String in, int[][] ans) {
-		assertThat(Array.parse2D(in)).isDeepEqualTo(ans);
+		assertThat(Array.p2D(in)).isDeepEqualTo(ans);
 	}
 
 }

@@ -15,8 +15,8 @@ class TransposeMatrix867Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(Array.parse2D("[[1,2,3],[4,5,6],[7,8,9]]"), Array.parse2D("[[1,4,7],[2,5,8],[3,6,9]]")),
-				of(Array.parse2D("[[1,2,3],[4,5,6]]"), Array.parse2D("[[1,4],[2,5],[3,6]]"))
+				of(Array.p2D("[[1,2,3],[4,5,6],[7,8,9]]"), Array.p2D("[[1,4,7],[2,5,8],[3,6,9]]")),
+				of(Array.p2D("[[1,2,3],[4,5,6]]"), Array.p2D("[[1,4],[2,5],[3,6]]"))
 		);
 	}
 

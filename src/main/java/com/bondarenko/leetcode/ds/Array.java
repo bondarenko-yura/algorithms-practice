@@ -10,7 +10,7 @@ public final class Array {
 		throw new AssertionError("util clazz");
 	}
 
-	public static int[] parse1D(String a) {
+	public static int[] p1D(String a) {
 		if (a == null || a.trim().isEmpty())
 			return null;
 		var sub = a.substring(startIDx(a) + 1, endIDx(a));
@@ -23,11 +23,11 @@ public final class Array {
 		return ans;
 	}
 
-	public static List<Integer> parse1DList(String s) {
-		return Arrays.stream(parse1D(s)).boxed().toList();
+	public static List<Integer> p1DList(String s) {
+		return Arrays.stream(p1D(s)).boxed().toList();
 	}
 
-	public static int[][] parse2D(String a) {
+	public static int[][] p2D(String a) {
 		if (a == null)
 			return null;
 		var sub = a.substring(startIDx(a) + 1, endIDx(a));
@@ -39,13 +39,13 @@ public final class Array {
 			if (c == '[')
 				left = right;
 			else if (c == ']')
-				res.add(parse1D(sub.substring(left, right + 1)));
+				res.add(p1D(sub.substring(left, right + 1)));
 		}
 		return res.toArray(int[][]::new);
 	}
 
-	public static List<List<Integer>> parse2DList(String a) {
-		return Arrays.stream(parse2D(a))
+	public static List<List<Integer>> p2DList(String a) {
+		return Arrays.stream(p2D(a))
 				.map(v -> Arrays.stream(v).boxed().toList())
 				.toList();
 	}
