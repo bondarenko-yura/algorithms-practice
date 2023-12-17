@@ -6,8 +6,6 @@ import java.util.TreeSet;
 
 /*
  URL: https://leetcode.com/problems/design-a-food-rating-system
- Time: x
- Space: x
  */
 public class DesignAFoodRatingSystem2353 {
 
@@ -16,6 +14,10 @@ public class DesignAFoodRatingSystem2353 {
 		private final Map<String, Rating> foods = new HashMap<>();
 		private final Map<String, TreeSet<Rating>> cuisines = new HashMap<>();
 
+		/*
+		 Time: NLogN
+		 Space: N
+		*/
 		public FoodRatings(String[] foods, String[] cuisines, int[] ratings) {
 			for (int i = 0; i < foods.length; i++) {
 				var rt = new Rating(cuisines[i], foods[i], ratings[i]);
@@ -24,6 +26,10 @@ public class DesignAFoodRatingSystem2353 {
 			}
 		}
 
+		/*
+		 Time: LogN
+		 Space: 1
+		*/
 		public void changeRating(String food, int newRating) {
 			var f = this.foods.get(food);
 			var cuisine = this.cuisines.get(f.cuisine);
@@ -32,6 +38,10 @@ public class DesignAFoodRatingSystem2353 {
 			cuisine.add(f);
 		}
 
+		/*
+		 Time: 1
+		 Space: 1
+		*/
 		public String highestRated(String cuisine) {
 			return this.cuisines.get(cuisine).first().food;
 		}
