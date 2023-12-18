@@ -9,21 +9,20 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-class UniqueLength3PalindromicSubsequences1930Test {
+class MaximumProductDifferenceBetweenTwoPairs1913Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of("aabca", 3),
-				of("adc", 0),
-				of("bbcbaba", 4)
+				of(new int[]{5, 6, 2, 7, 4}, 34),
+				of(new int[]{4, 2, 5, 9, 7, 4, 8}, 64)
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args")
-	void test(String s, int ans) {
-		var algo = new UniqueLength3PalindromicSubsequences1930();
-		assertThat(algo.countPalindromicSubsequence(s)).isEqualTo(ans);
+	void test(int[] nums, int ans) {
+		var algo = new MaximumProductDifferenceBetweenTwoPairs1913();
+		assertThat(algo.maxProductDifference(nums)).isEqualTo(ans);
 	}
 
 }
