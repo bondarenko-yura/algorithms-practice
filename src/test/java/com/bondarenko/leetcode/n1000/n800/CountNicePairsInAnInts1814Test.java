@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-class CountNicePairsInAnArray1814Test {
+class CountNicePairsInAnInts1814Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(

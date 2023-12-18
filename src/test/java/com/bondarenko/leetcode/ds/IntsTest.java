@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-class ArrayTest {
+class IntsTest {
 
 	private static Stream<Arguments> args1D() {
 		return Stream.of(
@@ -35,13 +35,13 @@ class ArrayTest {
 	@ParameterizedTest
 	@MethodSource("args1D")
 	void test1D(String in, int[] ans) {
-		assertThat(Array.p1D(in)).isEqualTo(ans);
+		assertThat(Ints.p1D(in)).isEqualTo(ans);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args2D")
 	void test2D(String in, int[][] ans) {
-		assertThat(Array.p2D(in)).isDeepEqualTo(ans);
+		assertThat(Ints.p2D(in)).isDeepEqualTo(ans);
 	}
 
 }

@@ -2,7 +2,7 @@ package com.bondarenko.leetcode.n0000.n800;
 
 import java.util.stream.Stream;
 
-import com.bondarenko.leetcode.ds.Array;
+import com.bondarenko.leetcode.ds.Ints;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,8 +15,8 @@ class TransposeMatrix867Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(Array.p2D("[[1,2,3],[4,5,6],[7,8,9]]"), Array.p2D("[[1,4,7],[2,5,8],[3,6,9]]")),
-				of(Array.p2D("[[1,2,3],[4,5,6]]"), Array.p2D("[[1,4],[2,5],[3,6]]"))
+				of(Ints.p2D("[[1,2,3],[4,5,6],[7,8,9]]"), Ints.p2D("[[1,4,7],[2,5,8],[3,6,9]]")),
+				of(Ints.p2D("[[1,2,3],[4,5,6]]"), Ints.p2D("[[1,4],[2,5],[3,6]]"))
 		);
 	}
 

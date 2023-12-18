@@ -3,7 +3,7 @@ package com.bondarenko.leetcode.n0000.n000;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.bondarenko.leetcode.ds.Array;
+import com.bondarenko.leetcode.ds.Ints;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,9 +16,9 @@ class CombinationSum39Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(new int[]{2, 3, 6, 7}, 7, Array.p2DList("[[2,2,3],[7]]")),
-				of(new int[]{2, 3, 5}, 8, Array.p2DList("[[2,2,2,2],[2,3,3],[3,5]]")),
-				of(new int[]{2}, 1, Array.p2DList("[]"))
+				of(new int[]{2, 3, 6, 7}, 7, Ints.p2DList("[[2,2,3],[7]]")),
+				of(new int[]{2, 3, 5}, 8, Ints.p2DList("[[2,2,2,2],[2,3,3],[3,5]]")),
+				of(new int[]{2}, 1, Ints.p2DList("[]"))
 		);
 	}
 

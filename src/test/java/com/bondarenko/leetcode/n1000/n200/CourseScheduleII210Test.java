@@ -6,8 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static com.bondarenko.leetcode.ds.Array.p1D;
-import static com.bondarenko.leetcode.ds.Array.p2D;
+import static com.bondarenko.leetcode.ds.Ints.p1D;
+import static com.bondarenko.leetcode.ds.Ints.p2D;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 

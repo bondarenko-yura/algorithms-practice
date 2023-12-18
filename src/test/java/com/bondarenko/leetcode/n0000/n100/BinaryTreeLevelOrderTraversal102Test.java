@@ -3,7 +3,7 @@ package com.bondarenko.leetcode.n0000.n100;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.bondarenko.leetcode.ds.Array;
+import com.bondarenko.leetcode.ds.Ints;
 import com.bondarenko.leetcode.ds.TreeNode;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,9 +17,9 @@ class BinaryTreeLevelOrderTraversal102Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(TreeNode.of(3, 9, 20, null, null, 15, 7), Array.p2DList("[[3],[9,20],[15,7]]")),
-				of(TreeNode.of(1), Array.p2DList("[[1]]")),
-				of(TreeNode.of(), Array.p2DList("[]"))
+				of(TreeNode.of(3, 9, 20, null, null, 15, 7), Ints.p2DList("[[3],[9,20],[15,7]]")),
+				of(TreeNode.of(1), Ints.p2DList("[[1]]")),
+				of(TreeNode.of(), Ints.p2DList("[]"))
 		);
 	}
 

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Array {
+public final class Ints {
 
-	private Array() {
+	private Ints() {
 		throw new AssertionError("util clazz");
 	}
 

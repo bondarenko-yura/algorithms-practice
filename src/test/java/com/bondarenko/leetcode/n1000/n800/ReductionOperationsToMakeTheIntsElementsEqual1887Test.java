@@ -1,4 +1,4 @@
-package com.bondarenko.leetcode.n1000.n600;
+package com.bondarenko.leetcode.n1000.n800;
 
 import java.util.stream.Stream;
 
@@ -9,20 +9,20 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-class SumOfAbsoluteDifferencesInASortedArray1685Test {
+class ReductionOperationsToMakeTheIntsElementsEqual1887Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(new int[]{2, 3, 5}, new int[]{4, 3, 5}),
-				of(new int[]{1, 4, 6, 8, 10}, new int[]{24, 15, 13, 15, 21})
+				of(new int[]{5,1,3}, 3),
+				of(new int[]{1,1,1}, 0),
+				of(new int[]{1,1,2,2,3}, 4)
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args")
-	void test(int[] arr, int[] ans) {
-		var algo = new SumOfAbsoluteDifferencesInASortedArray1685();
-		assertThat(algo.getSumAbsoluteDifferences(arr)).isEqualTo(ans);
+	void test(int[] arr, int ans) {
+		var algo = new ReductionOperationsToMakeTheArrayElementsEqual1887();
+		assertThat(algo.reductionOperations(arr)).isEqualTo(ans);
 	}
-
 }

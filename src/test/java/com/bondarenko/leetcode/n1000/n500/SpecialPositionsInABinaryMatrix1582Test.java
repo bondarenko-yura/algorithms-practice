@@ -2,7 +2,7 @@ package com.bondarenko.leetcode.n1000.n500;
 
 import java.util.stream.Stream;
 
-import com.bondarenko.leetcode.ds.Array;
+import com.bondarenko.leetcode.ds.Ints;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,10 +15,10 @@ class SpecialPositionsInABinaryMatrix1582Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(Array.p2D("[[0,0,1,0],[0,0,0,0],[0,0,0,0],[0,1,0,0]]"), 2),
-				of(Array.p2D("[[1,0,0],[0,0,1],[1,0,0]]"), 1),
-				of(Array.p2D("[[1,1],[1,1]]"), 0),
-				of(Array.p2D("[[1,0,0],[0,1,0],[0,0,1]]"), 3)
+				of(Ints.p2D("[[0,0,1,0],[0,0,0,0],[0,0,0,0],[0,1,0,0]]"), 2),
+				of(Ints.p2D("[[1,0,0],[0,0,1],[1,0,0]]"), 1),
+				of(Ints.p2D("[[1,1],[1,1]]"), 0),
+				of(Ints.p2D("[[1,0,0],[0,1,0],[0,0,1]]"), 3)
 		);
 	}
 

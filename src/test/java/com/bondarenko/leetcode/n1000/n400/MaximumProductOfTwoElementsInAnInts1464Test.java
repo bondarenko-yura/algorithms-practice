@@ -1,8 +1,6 @@
-package com.bondarenko.leetcode.n1000.n200;
+package com.bondarenko.leetcode.n1000.n400;
 
 import java.util.stream.Stream;
-
-import com.bondarenko.leetcode.ds.Ints;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,20 +9,21 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-class BestMeetingPoint296Test {
+class MaximumProductOfTwoElementsInAnInts1464Test {
 
 	private static Stream<Arguments> args() {
 		return Stream.of(
-				of(Ints.p2D("[[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]]"), 6),
-				of(Ints.p2D("[[1,1]]"), 1)
+				of(new int[]{3, 4, 5, 2}, 12),
+				of(new int[]{1, 5, 4, 5}, 16),
+				of(new int[]{3, 7}, 12)
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("args")
-	void test(int[][] grid, int ans) {
-		var algo = new BestMeetingPoint296();
-		assertThat(algo.minTotalDistance(grid)).isEqualTo(ans);
+	void test(int[] nums, int ans) {
+		var algo = new MaximumProductOfTwoElementsInAnArray1464();
+		assertThat(algo.maxProduct(nums)).isEqualTo(ans);
 	}
 
 }
