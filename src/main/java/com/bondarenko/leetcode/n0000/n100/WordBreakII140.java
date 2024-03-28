@@ -13,11 +13,11 @@ public class WordBreakII140 {
 	public List<String> wordBreak(String s, List<String> wordDict) {
 		var trie = createTrie(wordDict);
 		var ans = new ArrayList<String>();
-		searchSentences(0, s.toCharArray(), trie, new StringBuilder(), ans);
+		dfs(0, s.toCharArray(), trie, new StringBuilder(), ans);
 		return ans;
 	}
 
-	private void searchSentences(int i, char[] s, Trie trie, StringBuilder sb, List<String> ans) {
+	private void dfs(int i, char[] s, Trie trie, StringBuilder sb, List<String> ans) {
 		if (i == s.length) {
 			ans.add(sb.toString());
 			return;
@@ -28,16 +28,13 @@ public class WordBreakII140 {
 			if (root.nodes == null || root.nodes[c] == null)
 				break;
 			root = root.nodes[c];
-			if (root.words != null) {
-				if (sb.length() > 0)
+			if (root.word != null) {
+				var baseLen = sb.length();
+				if (baseLen > 0)
 					sb.append(' ');
-				for (String w : root.words) {
-					sb.append(w);
-					searchSentences(i, s, trie, sb, ans);
-					sb.delete(sb.length() - w.length(), sb.length());
-				}
-				if (sb.length() > 0)
-					sb.deleteCharAt(sb.length() - 1);
+				sb.append(root.word);
+				dfs(i, s, trie, sb, ans);
+				sb.delete(baseLen, sb.length());
 			}
 		}
 	}
@@ -54,15 +51,14 @@ public class WordBreakII140 {
 					root.nodes[c] = new Trie();
 				root = root.nodes[c];
 			}
-			if (root.words == null)
-				root.words = new ArrayList<>();
-			root.words.add(w);
+			root.word = w;
 		}
 		return trie;
 	}
 
 	private static final class Trie {
 		Trie[] nodes;
-		List<String> words;
+		String word;
 	}
+
 }
