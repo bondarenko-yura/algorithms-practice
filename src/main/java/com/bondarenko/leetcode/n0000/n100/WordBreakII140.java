@@ -5,8 +5,8 @@ import java.util.List;
 
 /*
  https://leetcode.com/problems/word-break-ii
- Time: ?
- Space: ?
+ Time: MN
+ Space: MN
  */
 public class WordBreakII140 {
 
