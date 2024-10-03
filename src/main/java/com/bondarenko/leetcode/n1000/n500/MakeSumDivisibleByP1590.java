@@ -32,7 +32,7 @@ public class MakeSumDivisibleByP1590 {
 			currentSum = (currentSum + nums[i]) % p;
 
 			// Calculate what we need to remove
-			int needed = (currentSum - target + p) % p;
+			var needed = (currentSum - target + p) % p;
 
 			// If we have seen the needed remainder, we can consider this subarray
 			if (mods.containsKey(needed))
