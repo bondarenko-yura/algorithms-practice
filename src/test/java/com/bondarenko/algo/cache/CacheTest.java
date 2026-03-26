@@ -75,6 +75,171 @@ class CacheTest {
         assertThat(finder.videoService.count).isEqualTo(expectCalls);
     }
 
+    @Test
+    public void testClusterSkipReducesCallsForLargeKnownCluster() {
+        // Clusters: [A] and [B, C, D, E] — all 4 are duplicates of each other
+        var clusters = List.of(List.of("A"), List.of("B", "C", "D", "E"));
+        var finder = new DuplicateFinder(new VideoCompareService(clusters), new Cache());
+        var expectCalls = 0;
+
+        // Build up the B-C-D-E cluster incrementally (3 calls)
+        expectCalls += 1;
+        finder.findKnownSimilar("B", List.of("C"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        expectCalls += 1;
+        finder.findKnownSimilar("B", List.of("D"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        expectCalls += 1;
+        finder.findKnownSimilar("B", List.of("E"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // A vs [B,C,D,E]: all 4 are in the same known cluster → findAllInCluster returns all 4,
+        // so only 1 comparison is needed to rule out the entire cluster
+        expectCalls += 1;
+        var r1 = finder.findKnownSimilar("A", List.of("B", "C", "D", "E"));
+        assertThat(r1).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // Repeat: now A's cluster is known to be DIFFERENT from B's cluster → 0 calls
+        expectCalls += 0;
+        var r2 = finder.findKnownSimilar("A", List.of("B", "C", "D", "E"));
+        assertThat(r2).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+    }
+
+    @Test
+    public void testMergeCorrectlyPreservesDifferentRelationships() {
+        // Clusters: [A, B] and [X] — A and X are different, then A and B are merged
+        var clusters = List.of(List.of("A", "B"), List.of("X"));
+        var finder = new DuplicateFinder(new VideoCompareService(clusters), new Cache());
+        var expectCalls = 0;
+
+        // Establish A != X (1 call)
+        expectCalls += 1;
+        var r1 = finder.findKnownSimilar("A", List.of("X"));
+        assertThat(r1).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // Establish A == B (1 call) — this merges clusters; the DIFFERENT(A, X) pair must survive the merge
+        expectCalls += 1;
+        var r2 = finder.findKnownSimilar("A", List.of("B"));
+        assertThat(r2).containsExactlyInAnyOrder(new Investigation("A", "B", RelationType.SIMILAR));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // B != X must be deduced from cache (B is now in A's cluster, A != X) → 0 calls
+        expectCalls += 0;
+        var r3 = finder.findKnownSimilar("B", List.of("X"));
+        assertThat(r3).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // A != X still known after the merge → 0 calls
+        expectCalls += 0;
+        var r4 = finder.findKnownSimilar("A", List.of("X"));
+        assertThat(r4).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+    }
+
+    @Test
+    public void testTransitiveClusterMembershipReducesCalls() {
+        // Clusters: [A, B, C] — demonstrate that after A==B and C is compared to A,
+        // the cluster skip covers B as well (only 1 call for C, not 2)
+        var clusters = List.of(List.of("A", "B", "C"));
+        var finder = new DuplicateFinder(new VideoCompareService(clusters), new Cache());
+        var expectCalls = 0;
+
+        // Establish A == B (1 call). C is unknown, not yet in cache.
+        expectCalls += 1;
+        var r1 = finder.findKnownSimilar("A", List.of("B", "C"));
+        assertThat(r1).containsExactlyInAnyOrder(new Investigation("A", "B", RelationType.SIMILAR));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // C vs [A, B]: A and B are in the same known cluster → findAllInCluster("A",…) returns ["A","B"]
+        // So only 1 comparison needed; C==A is found, and C==B is derived without an extra call
+        expectCalls += 1;
+        var r2 = finder.findKnownSimilar("C", List.of("A", "B"));
+        assertThat(r2).containsExactlyInAnyOrder(
+                new Investigation("C", "A", RelationType.SIMILAR),
+                new Investigation("C", "B", RelationType.SIMILAR)
+        );
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // All three in the same cluster now — B vs [A, C] requires 0 calls
+        expectCalls += 0;
+        var r3 = finder.findKnownSimilar("B", List.of("A", "C"));
+        assertThat(r3).containsExactlyInAnyOrder(
+                new Investigation("B", "A", RelationType.SIMILAR),
+                new Investigation("B", "C", RelationType.SIMILAR)
+        );
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+    }
+
+    @Test
+    public void testEarlyReturnWhenSimilarAlreadyKnown() {
+        // Once a SIMILAR match is found in cache, unknown targets should NOT trigger expensive calls
+        var clusters = List.of(List.of("A", "B"), List.of("C"));
+        var finder = new DuplicateFinder(new VideoCompareService(clusters), new Cache());
+        var expectCalls = 0;
+
+        // Establish A == B (1 call)
+        expectCalls += 1;
+        finder.findKnownSimilar("A", List.of("B"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // A vs [B, C]: B is SIMILAR (known), C is UNKNOWN.
+        // Because similar list is non-empty after cache lookup, we return early — C is never compared.
+        expectCalls += 0;
+        var r = finder.findKnownSimilar("A", List.of("B", "C"));
+        assertThat(r).containsExactlyInAnyOrder(new Investigation("A", "B", RelationType.SIMILAR));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+    }
+
+    @Test
+    public void testDifferentKnowledgeTransfersThroughChainedMerges() {
+        // Clusters: [A, B, C] and [X, Y]
+        // Tests that after chained merges on both sides, cross-cluster DIFFERENT is inferred with 0 calls
+        var clusters = List.of(List.of("A", "B", "C"), List.of("X", "Y"));
+        var finder = new DuplicateFinder(new VideoCompareService(clusters), new Cache());
+        var expectCalls = 0;
+
+        // Establish A != X (1 call)
+        expectCalls += 1;
+        finder.findKnownSimilar("A", List.of("X"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // Establish X == Y (1 call)
+        expectCalls += 1;
+        finder.findKnownSimilar("X", List.of("Y"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // Establish A == B (1 call) — merges A and B; DIFFERENT(A_root, X_root) must be preserved
+        expectCalls += 1;
+        finder.findKnownSimilar("A", List.of("B"));
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // C joins the A-B cluster (1 call)
+        expectCalls += 1;
+        var r4 = finder.findKnownSimilar("C", List.of("A", "B"));
+        assertThat(r4).containsExactlyInAnyOrder(
+                new Investigation("C", "A", RelationType.SIMILAR),
+                new Investigation("C", "B", RelationType.SIMILAR)
+        );
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // B != X — B is in A's cluster, A != X → deduced with 0 calls
+        expectCalls += 0;
+        var r5 = finder.findKnownSimilar("B", List.of("X"));
+        assertThat(r5).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+
+        // C != Y — C is in A's cluster, Y is in X's cluster, A_cluster != X_cluster → 0 calls
+        expectCalls += 0;
+        var r6 = finder.findKnownSimilar("C", List.of("Y"));
+        assertThat(r6).isEmpty();
+        assertThat(finder.videoService.count).isEqualTo(expectCalls);
+    }
+
     static class DuplicateFinder {
         final VideoCompareService videoService;
         final Cache cache;
