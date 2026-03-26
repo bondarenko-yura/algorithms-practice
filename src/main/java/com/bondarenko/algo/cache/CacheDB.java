@@ -30,6 +30,8 @@ public class CacheDB {
 
     private final Db db;
 
+    public int dbCallCount() { return db.callCount.get(); }
+
     public CacheDB() {
         try {
             String url = "jdbc:h2:mem:cachedb_" + DB_SEQ.getAndIncrement() + ";DB_CLOSE_DELAY=-1";
@@ -185,6 +187,7 @@ public class CacheDB {
     private static class Db {
 
         private final Connection conn;
+        final AtomicInteger callCount = new AtomicInteger();
 
         Db(Connection conn) throws SQLException {
             this.conn = conn;
@@ -202,6 +205,7 @@ public class CacheDB {
         // ── parent ────────────────────────────────────────────────────────────
 
         void insertIfAbsent(String id) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "INSERT INTO parent (id, root) SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM parent WHERE id = ?)")) {
                 ps.setString(1, id);
@@ -214,6 +218,7 @@ public class CacheDB {
         }
 
         String getRoot(String id) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "SELECT root FROM parent WHERE id = ?")) {
                 ps.setString(1, id);
@@ -226,6 +231,7 @@ public class CacheDB {
         }
 
         Map<String, String> getRoots(List<String> ids) {
+            callCount.incrementAndGet();
             String placeholders = ids.stream().map(x -> "?").collect(Collectors.joining(","));
             Map<String, String> result = new LinkedHashMap<>();
             try (PreparedStatement ps = conn.prepareStatement(
@@ -241,6 +247,7 @@ public class CacheDB {
         }
 
         void updateRoot(String id, String root) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "UPDATE parent SET root = ? WHERE id = ?")) {
                 ps.setString(1, root);
@@ -252,6 +259,7 @@ public class CacheDB {
         }
 
         void updateRoots(List<String> ids, String root) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "UPDATE parent SET root = ? WHERE id = ?")) {
                 for (String id : ids) {
@@ -268,6 +276,7 @@ public class CacheDB {
         // ── different_clusters ────────────────────────────────────────────────
 
         boolean pairExists(RootPair pair) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "SELECT 1 FROM different_clusters WHERE root1 = ? AND root2 = ?")) {
                 ps.setString(1, pair.r1());
@@ -281,6 +290,7 @@ public class CacheDB {
         }
 
         List<RootPair> getPairsInvolving(String root) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "SELECT root1, root2 FROM different_clusters WHERE root1 = ? OR root2 = ?")) {
                 ps.setString(1, root);
@@ -296,6 +306,7 @@ public class CacheDB {
         }
 
         void deletePairsInvolving(String root) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "DELETE FROM different_clusters WHERE root1 = ? OR root2 = ?")) {
                 ps.setString(1, root);
@@ -307,6 +318,7 @@ public class CacheDB {
         }
 
         void insertPair(RootPair pair) {
+            callCount.incrementAndGet();
             try (PreparedStatement ps = conn.prepareStatement(
                     "INSERT INTO different_clusters (root1, root2) SELECT ?, ? WHERE NOT EXISTS " +
                     "(SELECT 1 FROM different_clusters WHERE root1 = ? AND root2 = ?)")) {
@@ -321,6 +333,7 @@ public class CacheDB {
         }
 
         Set<RootPair> getDifferentPairs(String sourceRoot, Set<String> targetRoots) {
+            callCount.incrementAndGet();
             List<RootPair> pairs = targetRoots.stream()
                     .map(tr -> new RootPair(sourceRoot, tr))
                     .toList();
