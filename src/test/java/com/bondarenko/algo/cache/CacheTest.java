@@ -1,7 +1,5 @@
 package com.bondarenko.algo.cache;
 
-import com.bondarenko.algo.cache.Cache.Investigation;
-import com.bondarenko.algo.cache.Cache.RelationType;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

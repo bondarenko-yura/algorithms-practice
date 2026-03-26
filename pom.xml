@@ -26,6 +26,7 @@
 		<junit-bom.version>5.10.1</junit-bom.version>
 		<algs4.version>1.0.0</algs4.version>
 		<assertj-core.version>3.24.2</assertj-core.version>
+		<h2.version>2.2.224</h2.version>
 
 		<!--PLUGINS-->
 		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -71,6 +72,11 @@
 			<artifactId>assertj-core</artifactId>
 			<version>${assertj-core.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
 		</dependency>
 	</dependencies>
 
