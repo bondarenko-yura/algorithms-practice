@@ -24,6 +24,10 @@ public class Cache {
         String rootA = find(a);
         String rootB = find(b);
         if (rootA.equals(rootB)) return;
+        if (differentClusters.contains(clusterKey(rootA, rootB))) {
+            throw new IllegalStateException(
+                    a + " and " + b + " are already known to be DIFFERENT — cannot mark as SIMILAR");
+        }
 
         // Before merging, rewrite any "different" pairs that referenced rootB → rootA
         Set<String> updated = new HashSet<>();
@@ -54,6 +58,11 @@ public class Cache {
         } else if (investigation.relation == RelationType.DIFFERENT) {
             String rootA = find(investigation.sourceID);
             String rootB = find(investigation.targetID);
+            if (rootA.equals(rootB)) {
+                throw new IllegalStateException(
+                        investigation.sourceID + " and " + investigation.targetID +
+                        " are already known to be SIMILAR — cannot mark as DIFFERENT");
+            }
             differentClusters.add(clusterKey(rootA, rootB));
         }
     }

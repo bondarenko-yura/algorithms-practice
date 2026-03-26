@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CacheTest {
 
@@ -236,6 +237,30 @@ class CacheTest {
         var r6 = finder.findKnownSimilar("C", List.of("Y"));
         assertThat(r6).isEmpty();
         assertThat(finder.videoService.count).isEqualTo(expectCalls);
+    }
+
+    @Test
+    public void testContradictionThrows() {
+        var cache = new Cache();
+        cache.saveInvestigation(new Investigation("A", "B", RelationType.SIMILAR));
+        assertThatThrownBy(() -> cache.saveInvestigation(new Investigation("A", "B", RelationType.DIFFERENT)))
+                .isInstanceOf(IllegalStateException.class);
+        // transitively similar: A==B, B==C → A and C are in the same cluster
+        cache.saveInvestigation(new Investigation("B", "C", RelationType.SIMILAR));
+        assertThatThrownBy(() -> cache.saveInvestigation(new Investigation("A", "C", RelationType.DIFFERENT)))
+                .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    public void testReverseContradictionThrows() {
+        var cache = new Cache();
+        cache.saveInvestigation(new Investigation("A", "B", RelationType.DIFFERENT));
+        assertThatThrownBy(() -> cache.saveInvestigation(new Investigation("A", "B", RelationType.SIMILAR)))
+                .isInstanceOf(IllegalStateException.class);
+        // transitively different: A!=B, B==C → A!=C (via cluster membership)
+        cache.saveInvestigation(new Investigation("B", "C", RelationType.SIMILAR));
+        assertThatThrownBy(() -> cache.saveInvestigation(new Investigation("A", "C", RelationType.SIMILAR)))
+                .isInstanceOf(IllegalStateException.class);
     }
 
     static class DuplicateFinder {
