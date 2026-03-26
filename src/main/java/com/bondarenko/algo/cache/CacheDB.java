@@ -1,18 +1,23 @@
 package com.bondarenko.algo.cache;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * DB-backed equivalent of {@link Cache}.
  * Uses an H2 in-memory relational database to store the Union-Find state:
  *
- *   parent(id PK, root)          — each node mapped to its cluster root (path-compressed)
+ *   parent(id PK, root)             — each node mapped to its cluster root (path-compressed)
  *   different_clusters(root1, root2) — canonical pairs of roots known to be in different clusters
+ *
+ * Optimizations over the naive per-row approach:
+ *  1. Path compression skips no-op updates: only nodes that don't yet point directly to the root
+ *     are written (saves the spurious UPDATE for the penultimate node in the chain).
+ *  2. findRelationship issues one SELECT IN for all targets and one batched different_clusters
+ *     check, reducing O(6N) → O(1) DB calls regardless of the number of targets.
+ *  3. findAllInCluster issues one SELECT IN for all query ids → O(5M) → O(1).
  */
 public class CacheDB {
 
@@ -40,7 +45,16 @@ public class CacheDB {
 
     // ── Union-Find ────────────────────────────────────────────────────────────
 
-    /** Returns the cluster root of {@code id}, inserting it if absent. Applies path compression. */
+    /**
+     * Returns the cluster root of {@code id}, inserting it if absent.
+     *
+     * DB calls: 1 INSERT (no-op if exists) + chain-length SELECTs
+     *           + at most (chain-length − 2) batch UPDATEs.
+     *
+     * Optimization: the last node in the path IS the root (no update), and the
+     * second-to-last already points to the root (it was the stored value that led us
+     * there — also no update).  Only nodes with stale intermediate pointers are written.
+     */
     private String find(String id) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO parent (id, root) SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM parent WHERE id = ?)")) {
@@ -61,13 +75,17 @@ public class CacheDB {
         }
         String root = cur;
 
-        // Path compression: point every node in the path directly to root
-        if (path.size() > 1) {
+        // Optimization: skip the last two nodes in the path —
+        //   path[size-1] = root itself (root = root, no-op)
+        //   path[size-2] already stores root as its parent (that's how we reached it)
+        // Only path[0..size-3] have stale intermediate pointers and need updating.
+        int needsUpdate = path.size() - 2;   // number of nodes to update
+        if (needsUpdate > 0) {
             try (PreparedStatement ps = conn.prepareStatement(
                     "UPDATE parent SET root = ? WHERE id = ?")) {
-                for (String node : path) {
+                for (int i = 0; i < needsUpdate; i++) {
                     ps.setString(1, root);
-                    ps.setString(2, node);
+                    ps.setString(2, path.get(i));
                     ps.addBatch();
                 }
                 ps.executeBatch();
@@ -165,24 +183,57 @@ public class CacheDB {
         }
     }
 
+    /**
+     * Optimization: replaces O(6N) per-row calls with:
+     *   1 SELECT IN   — fetch all known targets and their stored roots at once
+     *   O(K) find()   — resolve any intermediate roots left stale after a union
+     *                   (K = distinct stored roots; typically very small after compression)
+     *   1 batched SELECT — check all (sourceRoot, targetRoot) pairs against different_clusters
+     */
     public List<Investigation> findRelationship(String sourceId, List<String> targetIds) {
         try {
             List<Investigation> result = new ArrayList<>();
+            if (targetIds.isEmpty()) return result;
+
             String sourceRoot = find(sourceId);
+
+            // 1. Fetch stored roots for all targets in one query
+            Map<String, String> storedRoots = batchGetStoredRoots(targetIds);
+
+            // 2. Resolve any intermediate stored roots to their true root via find().
+            //    After path compression, stored roots are typically already final roots,
+            //    so find() on them returns in O(1) with no updates needed.
+            Map<String, String> resolvedRoots = new HashMap<>();
+            for (String storedRoot : new HashSet<>(storedRoots.values())) {
+                resolvedRoots.put(storedRoot, find(storedRoot));
+            }
+
+            // 3. Map each known target to its true cluster root
+            Map<String, String> targetTrueRoot = new HashMap<>();
+            for (Map.Entry<String, String> e : storedRoots.entrySet()) {
+                targetTrueRoot.put(e.getKey(), resolvedRoots.get(e.getValue()));
+            }
+
+            // 4. Check all (sourceRoot, targetRoot) difference pairs in one query
+            Set<String> distinctTargetRoots = new HashSet<>(targetTrueRoot.values());
+            distinctTargetRoots.remove(sourceRoot);
+            Set<String> knownDifferent = distinctTargetRoots.isEmpty()
+                    ? Set.of()
+                    : batchCheckDifferent(sourceRoot, distinctTargetRoots);
+
+            // 5. Build result preserving order of targetIds
             for (String targetId : targetIds) {
-                if (!existsInParent(targetId)) {
+                if (!targetTrueRoot.containsKey(targetId)) {
                     result.add(new Investigation(sourceId, targetId, RelationType.UNKNOWN));
-                    continue;
-                }
-                String targetRoot = find(targetId);
-                if (sourceRoot.equals(targetRoot)) {
-                    result.add(new Investigation(sourceId, targetId, RelationType.SIMILAR));
                 } else {
-                    String key = clusterKey(sourceRoot, targetRoot);
-                    String[] parts = key.split("\\|", 2);
-                    RelationType rel = isDifferentCluster(parts[0], parts[1])
-                            ? RelationType.DIFFERENT
-                            : RelationType.UNKNOWN;
+                    String targetRoot = targetTrueRoot.get(targetId);
+                    RelationType rel;
+                    if (sourceRoot.equals(targetRoot)) {
+                        rel = RelationType.SIMILAR;
+                    } else {
+                        rel = knownDifferent.contains(clusterKey(sourceRoot, targetRoot))
+                                ? RelationType.DIFFERENT : RelationType.UNKNOWN;
+                    }
                     result.add(new Investigation(sourceId, targetId, rel));
                 }
             }
@@ -192,12 +243,31 @@ public class CacheDB {
         }
     }
 
+    /**
+     * Optimization: replaces O(5M) per-row calls with:
+     *   1 SELECT IN — fetch roots for all query ids at once
+     *   O(K) find() — resolve intermediate roots (typically O(1))
+     */
     public List<String> findAllInCluster(String sourceId, List<String> queryIds) {
         try {
+            if (queryIds.isEmpty()) return List.of();
+
             String sourceRoot = find(sourceId);
+
+            // 1. Fetch stored roots for all query ids in one query
+            Map<String, String> storedRoots = batchGetStoredRoots(queryIds);
+
+            // 2. Resolve unique stored roots to their true roots
+            Map<String, String> resolvedRoots = new HashMap<>();
+            for (String storedRoot : new HashSet<>(storedRoots.values())) {
+                resolvedRoots.put(storedRoot, find(storedRoot));
+            }
+
+            // 3. Collect ids whose true root matches sourceRoot
             List<String> result = new ArrayList<>();
             for (String id : queryIds) {
-                if (existsInParent(id) && find(id).equals(sourceRoot)) {
+                String stored = storedRoots.get(id);
+                if (stored != null && resolvedRoots.get(stored).equals(sourceRoot)) {
                     result.add(id);
                 }
             }
@@ -207,26 +277,50 @@ public class CacheDB {
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // ── Batch helpers ─────────────────────────────────────────────────────────
 
-    private boolean existsInParent(String id) throws SQLException {
+    /**
+     * One SELECT IN: returns the stored root for every id that exists in parent.
+     * Unknown ids are simply absent from the result map.
+     */
+    private Map<String, String> batchGetStoredRoots(List<String> ids) throws SQLException {
+        String placeholders = ids.stream().map(x -> "?").collect(Collectors.joining(","));
+        Map<String, String> result = new LinkedHashMap<>();
         try (PreparedStatement ps = conn.prepareStatement(
-                "SELECT 1 FROM parent WHERE id = ?")) {
-            ps.setString(1, id);
+                "SELECT id, root FROM parent WHERE id IN (" + placeholders + ")")) {
+            for (int i = 0; i < ids.size(); i++) ps.setString(i + 1, ids.get(i));
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+                while (rs.next()) result.put(rs.getString(1), rs.getString(2));
             }
         }
+        return result;
     }
 
-    private boolean isDifferentCluster(String r1, String r2) throws SQLException {
+    /**
+     * One SELECT with OR conditions: returns the canonical keys for all
+     * (sourceRoot, targetRoot) pairs that exist in different_clusters.
+     */
+    private Set<String> batchCheckDifferent(String sourceRoot, Set<String> targetRoots) throws SQLException {
+        List<String[]> pairs = targetRoots.stream()
+                .map(tr -> clusterKey(sourceRoot, tr).split("\\|", 2))
+                .collect(Collectors.toList());
+
+        String conditions = pairs.stream()
+                .map(p -> "(root1 = ? AND root2 = ?)")
+                .collect(Collectors.joining(" OR "));
+
+        Set<String> found = new HashSet<>();
         try (PreparedStatement ps = conn.prepareStatement(
-                "SELECT 1 FROM different_clusters WHERE root1 = ? AND root2 = ?")) {
-            ps.setString(1, r1);
-            ps.setString(2, r2);
+                "SELECT root1, root2 FROM different_clusters WHERE " + conditions)) {
+            int idx = 1;
+            for (String[] pair : pairs) {
+                ps.setString(idx++, pair[0]);
+                ps.setString(idx++, pair[1]);
+            }
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+                while (rs.next()) found.add(rs.getString(1) + "|" + rs.getString(2));
             }
         }
+        return found;
     }
 }
