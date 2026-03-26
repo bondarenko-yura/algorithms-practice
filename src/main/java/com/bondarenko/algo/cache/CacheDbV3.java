@@ -44,7 +44,7 @@ public class CacheDbV3 {
             if (investigation.relation == RelationType.SIMILAR) {
                 // Check contradiction: are they already known to be DIFFERENT?
                 // Use the optimized targeted query to check if 'b' is in the DIFFERENT cluster of 'a'
-                Map<String, String> differentNodes = getDifferentNodesForClusterWithReasons(transaction, a, List.of(b));
+                Map<String, String> differentNodes = getDifferentNodesForClusterWithReasons(tx, a, List.of(b));
                 if (differentNodes.containsKey(b)) {
                     throw new IllegalStateException(
                             a + " and " + b + " are already known to be DIFFERENT — cannot mark as SIMILAR");
@@ -155,41 +155,6 @@ public class CacheDbV3 {
             builder.set("reason").to(reason);
         }
         tx.buffer(builder.build());
-    }
-
-    private boolean areSimilar(TransactionContext tx, String a, String b) {
-        String gql = """
-            GRAPH CacheGraph
-            MATCH (a:Items {id: @a})-[e1:Similar*0..]-(x:Items)
-            MATCH (x)-[d:Different]-(y:Items)
-            MATCH (y)-[e2:Similar*0..]-(b:Items {id: @b})
-            RETURN b.id LIMIT 1
-            """;
-        Statement statement = Statement.newBuilder(gql)
-                .bind("a").to(a)
-                .bind("b").to(b)
-                .build();
-        try (ResultSet rs = tx.executeQuery(statement)) {
-            return rs.next();
-        }
-    }
-
-    private boolean areDifferent(TransactionContext tx, String a, String b) {
-        // GQL: Find if there's any Different edge connecting the SIMILAR cluster of A to the SIMILAR cluster of B
-        String gql = """
-            GRAPH CacheGraph
-            MATCH (a:Items {id: @a})-[e1:Similar*0..]-(x:Items)
-            MATCH (x)-[d:Different]-(y:Items)
-            MATCH (y)-[e2:Similar*0..]-(b:Items {id: @b})
-            RETURN b.id LIMIT 1
-            """;
-        Statement statement = Statement.newBuilder(gql)
-                .bind("a").to(a)
-                .bind("b").to(b)
-                .build();
-        try (ResultSet rs = tx.executeQuery(statement)) {
-            return rs.next();
-        }
     }
 
     private Set<String> getReachableSimilarNodes(ReadContext tx, String sourceId, List<String> targetIds) {
