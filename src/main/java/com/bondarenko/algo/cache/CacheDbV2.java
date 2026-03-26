@@ -151,7 +151,6 @@ public class CacheDbV2 {
     public List<Investigation> findRelationship(String sourceId, List<String> targetIds) {
         if (targetIds.isEmpty()) return List.of();
 
-        db.registerNode(sourceId);
         String sourceCluster = db.getClusterId(sourceId);
 
         // Single batch query — returns canonical cluster_id for each known target directly
@@ -191,7 +190,6 @@ public class CacheDbV2 {
     public List<String> findAllInCluster(String sourceId, List<String> queryIds) {
         if (queryIds.isEmpty()) return List.of();
 
-        db.registerNode(sourceId);
         String sourceCluster = db.getClusterId(sourceId);
         Map<String, String> queryClusters = db.getClusterIds(queryIds);
 
