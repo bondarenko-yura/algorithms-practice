@@ -323,7 +323,7 @@ public class CacheDB {
         Set<RootPair> getDifferentPairs(String sourceRoot, Set<String> targetRoots) {
             List<RootPair> pairs = targetRoots.stream()
                     .map(tr -> new RootPair(sourceRoot, tr))
-                    .collect(Collectors.toList());
+                    .toList();
 
             String conditions = pairs.stream()
                     .map(p -> "(root1 = ? AND root2 = ?)")
